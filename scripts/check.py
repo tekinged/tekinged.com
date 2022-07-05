@@ -26,8 +26,8 @@ def play(player,src):
       return -1
     else:
       success = (ans == 'y')
-  except pyglet.media.avbin.AVbinException, e:
-    print "Exception playing file. Assuming bad."
+  except pyglet.media.avbin.AVbinException as e:
+    print("Exception playing file. Assuming bad.")
     success = 0  
   print "%s -> %d" % ( src, success )
   return success
