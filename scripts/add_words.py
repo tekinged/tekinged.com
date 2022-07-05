@@ -21,7 +21,7 @@ def insert_word(c,pword,pos,edef,stem=None,prompt=True):
   query = "insert into all_words3 (pal,pos,eng,stem) values (%s,%s,%s,%s)"
   values = (pword,pos,edef,stem)
   try:
-    print "\tExecute %s %s?" % (query, ", ".join(str(i) for i in values))
+    print( "\tExecute %s %s?" % (query, ", ".join(str(i) for i in values)))
     if (prompt):
       var = raw_input("\ty|n? ")
     else:
@@ -39,7 +39,7 @@ def insert_word(c,pword,pos,edef,stem=None,prompt=True):
       return 0
   except: 
     e = sys.exc_info()[0]
-    print "insert_word Error: %s" % e
+    print("insert_word Error: %s" % e)
     return -1
 
 def add_extra(c,wid,field,value):
@@ -61,27 +61,27 @@ def add_extras(c,wid,extras):
   if len(extras)>0:
     flags = {'-o': 'origin', '-t': 'tags', '-j': 'josephs', '-b' : 'oword'}
     for extra in extras:
-      print "\tSliced out %s" % extra
+      print("\tSliced out %s" % extra)
       (flag,value) = (extra[0],extra[1])
       try:
         field=flags[flag]
       except:
-        print "Not yet handling extra arg %s %s" % (flag,value)
+        print("Not yet handling extra arg %s %s" % (flag,value))
         sys.exit(0)
       add_extra(c,wid,field,value)
 
 def add_variant(c,var,pal):
-  print "\tNeed to add %s as a variant of %s" % (var,pal)
+  print("\tNeed to add %s as a variant of %s" % (var,pal))
   c.execute("""select id,pos,eng,stem,pdef from all_words3 where pal like '%s'""" % pal)
   rows = c.fetchall()
   if (len(rows)>1):
-    print "%s has %d matches" % (pal, len(rows))
+    print("%s has %d matches" % (pal, len(rows)))
     for idx, row in enumerate(rows):
-      print "\t%d: %s %s [%s] [id %d, root %d]" % (idx,row['pos'],row['eng'],row['pdef'],row['id'],row['stem'])
+      print("\t%d: %s %s [%s] [id %d, root %d]" % (idx,row['pos'],row['eng'],row['pdef'],row['id'],row['stem']))
     answer = raw_input("\tWhich word to use as root for variant? ")
     row = rows[int(answer)]
   elif (len(rows)==0):
-    print "FATAL: %s has 0 matches." % pal
+    print("FATAL: %s has 0 matches." % pal)
     sys.exit(0)
   else:
     row = rows[0]
@@ -89,7 +89,7 @@ def add_variant(c,var,pal):
   return add_word(c,var,'var.',pal,row['stem'])
 
 def root_word(pieces,c):
-  print "Root word %s" % pieces
+  print("Root word %s" % pieces)
   (extras,pieces) = get_extras(pieces)
 
   pword=pieces[1]
@@ -121,7 +121,7 @@ def insert_example(c,query,values):
     global total_updates
     total_updates = total_updates + 1
   except MySQLdb.IntegrityError:
-    print "Ignoring exception on insert.  Probably duplicate."
+    print("Ignoring exception on insert.  Probably duplicate.")
 
 def get_poses(c):
   try:
@@ -137,7 +137,7 @@ def get_poses(c):
     # put in a new one to make this script work
     get_poses.pos.append('v.caus.inch.')
     get_poses.pos.append('v.a.s.redup.')
-    print get_poses.pos
+    print(get_poses.pos)
     return get_poses(c)
 
 def test_pos(c,pos):
@@ -151,7 +151,7 @@ def test_pos(c,pos):
         return False
   except AttributeError:
     test_pos.pos = get_poses(c)
-    print test_pos.pos
+    print(test_pos.pos)
     return test_pos(c,pos)
 
 def edef_has_pos(c,edef):
@@ -167,7 +167,7 @@ def edef_has_pos(c,edef):
 def add_word(c,pword,pos,edef,root=None,ignore_dups=False):
   # first let's make sure the pos is valid
   if (test_pos(c,pos)==False):
-    print "\t%s is unknown pos" % pos
+    print("\t%s is unknown pos" % pos)
     sys.exit(0)
 
   # lets recurse if the edef has any parts of speech in it
@@ -178,7 +178,7 @@ def add_word(c,pword,pos,edef,root=None,ignore_dups=False):
       try:
         (pre,post)=edef.split(split)
       except:
-        print "Couldn't split %s on %s" % (edef,split)
+        print("Couldn't split %s on %s" % (edef,split))
         sys.exit(0)
       (mainwid,branchwid) = add_word(c,pword,pos,pre,root,ignore_dups)
       if root is None:
@@ -207,29 +207,29 @@ def add_word(c,pword,pos,edef,root=None,ignore_dups=False):
 
   # special case expressions with reng
   if (pos == 'expression' and 'rengul' in pword):
-    print "Adding reng tag to %s : %d [group %d]" % (pword,branchwid,mainwid)
+    print("Adding reng tag to %s : %d [group %d]" % (pword,branchwid,mainwid))
     add_extra(c,branchwid,'tags','reng')
 
   return (mainwid,branchwid)
 
 def get_branch_count(c,wid):
   q= "select count(*) as c from all_words3 where stem=%s" % wid
-  #print "Get branch count with %s" % q
+  #print("Get branch count with %s" % q)
   c.execute(q)
   row = c.fetchone()
   return row['c']
 
 def add_missing(c,pword,pos,edef,root,prompt):
-  print "\tAdding missing word %s" % pword
+  print("\tAdding missing word %s" % pword)
   if edef is not None and 'xx' in edef:
-    print "\tDefinition is xx for a missing word. Fix."
+    print("\tDefinition is xx for a missing word. Fix.")
     sys.exit(0)
 
   if edef is not None and '/' in edef:
     modify = raw_input("\tReplace '/' in the definition with ' or '? [y|n]: ")
     if (modify == 'y'):
       edef = edef.replace('/',' or ')
-      print "\tModified definition to be %s" % edef
+      print("\tModified definition to be %s" % edef)
 
   wid = insert_word(c,pword,pos,edef,stem=root,prompt=False)
   if root==None:
@@ -238,7 +238,7 @@ def add_missing(c,pword,pos,edef,root,prompt):
 
 def linked_without_eng(row,pos,root):
   if (row['pos'] == pos and root == row['stem'] and (row['eng'] is None or len(row['eng']) < 1)): 
-    print "Already in and linked but missing english definition."
+    print("Already in and linked but missing english definition.")
     return True
   return False
 
@@ -249,7 +249,7 @@ def already_in(c,pword,row,edef,pos,root):
       # this means that we were trying to add a root word that is already in.
       nothing_to_do = True
       if (row['id'] != row['stem']):
-        print "\tSpecified %s as root but it isn't." % pword
+        print("\tSpecified %s as root but it isn't." % pword)
         branch_to_root(c,row['id'],row['stem'])
         row['stem'] = row['id']
     elif root == row['stem']: 
@@ -257,19 +257,19 @@ def already_in(c,pword,row,edef,pos,root):
       nothing_to_do = True
     if nothing_to_do:
       # easy case.  Already in with this def and pos.
-      print "\t%s already in with id %d stem %d." % (pword,row['id'],row['stem'])
+      print("\t%s already in with id %d stem %d." % (pword,row['id'],row['stem']))
       return True
   return False
 
 def branch_to_root(c,branch,root):
   confirm = raw_input("\tThat word is not a root.  Should I make it so and link it back to its current root [y|n]: ")
   if (confirm == 'y'):
-    print "\tNeed to make %d its own root and link it to %d" % (branch,root)
+    print("\tNeed to make %d its own root and link it to %d" % (branch,root))
     query = "update all_words3 set stem=id where id=%d" % branch
     update_db(c,query,None,False)
     actually_link(c,branch,root)
   else:
-    print "Sorry.  I don't know what to do now.  Bye!"
+    print("Sorry.  I don't know what to do now.  Bye!")
     sys.exit(0)
 
 def use_existing_root(c,rows):
@@ -280,7 +280,7 @@ def use_existing_root(c,rows):
         roots = roots + 1
         best_match=idx
     if (roots==1):
-      print "Only one possible root.  Using %d" % best_match
+      print("Only one possible root.  Using %d" % best_match)
       answer = best_match
     else:
       answer = raw_input("\tWhich word to use as root: ")
@@ -296,11 +296,11 @@ def use_existing_root(c,rows):
 
 
 def show_options(nword,update,skip,instead,quit):
-  print "\t%s: As a new word" % nword 
-  print "\t%s: Update existing to link to this group" % update 
-  print "\t%s: Do not enter right now" % skip 
-  print "\t%s: Do not enter now but use this word as the root for the rest of the group." % instead
-  print "\t%s: Quit" % quit
+  print("\t%s: As a new word" % nword )
+  print("\t%s: Update existing to link to this group" % update )
+  print("\t%s: Do not enter right now" % skip )
+  print("\t%s: Do not enter now but use this word as the root for the rest of the group." % instead)
+  print("\t%s: Quit" % quit)
 
 # this is the function that actually does an insert of a word into the db
 # There are several possible ways this can work
@@ -319,7 +319,7 @@ def really_add_word(c,pword,pos,edef,root=None,ignore_dups=False):
   pword = pword.replace('_',' ')
 
   # Look for whether this word (or a different word with same spelling) is already in the DB
-  print "\tSearching for %s, %s, %s" % (pword,pos,edef)
+  print("\tSearching for %s, %s, %s" % (pword,pos,edef))
   rows=belau.search(c,pword)
 
   # CASE 1: easy case.  The word not in at all.  Go ahead and add
@@ -348,10 +348,10 @@ def really_add_word(c,pword,pos,edef,root=None,ignore_dups=False):
     group_sz = get_branch_count(c,row['stem'])
     row['group_sz'] = group_sz
     try:
-      print "\t%d: Add to %s %s [%s] [id %d, root %d, group size %d]" % (idx,row['pos'],row['eng'],row['pdef'],row['id'],row['stem'],group_sz)
+      print("\t%d: Add to %s %s [%s] [id %d, root %d, group size %d]" % (idx,row['pos'],row['eng'],row['pdef'],row['id'],row['stem'],group_sz))
     except TypeError:
-      print "Caught type error"
-      print "Probably %s [id %d] has a NULL stem." % (pword,row['id'])
+      print("Caught type error")
+      print("Probably %s [id %d] has a NULL stem." % (pword,row['id']))
       sys.exit(0)
   # Here are the prompts
   nword = 'N' 
@@ -365,14 +365,14 @@ def really_add_word(c,pword,pos,edef,root=None,ignore_dups=False):
   # however, if the edef only contains xx then there is a problem
   if (edef == 'foo' or edef == 'xx'):
     if (root == None):
-      print "\tBecause definition is foo for a root word, assuming you want to use an existing word as root."
+      print("\tBecause definition is foo for a root word, assuming you want to use an existing word as root.")
       answer = instead
     else:
-      print "\tBecause definition is foo for a branch, assuming you want to update existing word to link to this group."
+      print("\tBecause definition is foo for a branch, assuming you want to update existing word to link to this group.")
       answer = update
   else:
     if edef is not None and 'xx' in edef:
-      print "\tDefinition contains xx. Fix."
+      print("\tDefinition contains xx. Fix.")
       sys.exit(0)
     # We need to ask the user want to do 
     answer = raw_input("\tEnter your choice: ")
@@ -389,12 +389,12 @@ def really_add_word(c,pword,pos,edef,root=None,ignore_dups=False):
 
   # quitting
   if (answer == quit):
-    print "\tWill quit now."
+    print("\tWill quit now.")
     sys.exit(0)
 
   # not doing anything
   if (answer == skip):
-    print "\tWill skip for now"
+    print("\tWill skip for now")
     return (root,-1)
 
   # just use an existing word as the root. This sets up the program so that the next stuff added goes into this group
@@ -432,11 +432,11 @@ def really_add_word(c,pword,pos,edef,root=None,ignore_dups=False):
     update_db(c,query,values,prompt=False)
     return (rows[int(answer)]['stem'],rows[int(answer)]['id'])
   else:
-    print "Non-sensical answer.  Exiting."
+    print("Non-sensical answer.  Exiting.")
     sys.exit(0)
 
 def update_db(c,query,values,prompt=True):
-  print "\tWill update with %s %s" % (query, values)
+  print("\tWill update with %s %s" % (query, values))
   if prompt:
     raw_input("\tContinue")
   c.execute(query,values)
@@ -445,7 +445,7 @@ def update_db(c,query,values,prompt=True):
 
 
 def add_perfectives(c,perf_string,root):
-  print "\tAdding perfectives for root %s" % root
+  print("\tAdding perfectives for root %s" % root)
   perfectives = perf_string.replace(',','').split() # strip any commas
   # insert the perfectives
   if ('terir' in perfectives[1]):
@@ -454,15 +454,15 @@ def add_perfectives(c,perf_string,root):
     posarray=('v.pf.3s','v.pf.3p.inan','v.pf.3s.past', 'v.pf.3p.inan.past')
   for idx, pos in enumerate(posarray):
     if 'xx' in perfectives[idx]:
-      print "Not adding perfective for pos %s" % pos
+      print("Not adding perfective for pos %s" % pos)
       continue
     (w,b) = add_word(c,perfectives[idx],pos,None,root=root,ignore_dups=True)
-    #print "TEMPORARILY ADDING JOSEPHS=4 to perfectives"
+    #print("TEMPORARILY ADDING JOSEPHS=4 to perfectives")
     #add_extra(c,b,'josephs',4)
     
 
 def add_branch(c,branch,root):
-  print "\tNeed to add branch %s to %s" % (branch,root)
+  print("\tNeed to add branch %s to %s" % (branch,root))
   pieces = branch.split()
   pword = pieces[0]
   pos = pieces[1]
@@ -480,19 +480,19 @@ def add_link(c,root_words,a,b):
 
   for word in ( a , b ):
     if word.isdigit():  # user is specifying to link the previously added root word 
-      print "\tUsing root word reverse indexing: %s" % root_words
+      print("\tUsing root word reverse indexing: %s" % root_words)
       stems.append(root_words[-1*int(word)])
       continue
     c.execute("""select id,pos,eng,stem,pdef from all_words3 where pal like '%s' and id=stem""" % word)
     rows = c.fetchall()
     if (len(rows)>1):
-      print "%s has %d matches" % (word, len(rows))
+      print("%s has %d matches" % (word, len(rows)))
       for idx, row in enumerate(rows):
-        print "\t%d: %s %s [%s] [id %d, root %d]" % (idx,row['pos'],row['eng'],row['pdef'],row['id'],row['stem'])
+        print("\t%d: %s %s [%s] [id %d, root %d]" % (idx,row['pos'],row['eng'],row['pdef'],row['id'],row['stem']))
       answer = raw_input("\tWhich word to link?")
       stems.append(rows[int(answer)]['stem'])
     elif (len(rows)==0):
-      print "FATAL: %s has 0 matches." % word
+      print("FATAL: %s has 0 matches." % word)
       sys.exit(0)
     else:
       row = rows[0]
@@ -503,16 +503,16 @@ def add_link(c,root_words,a,b):
 def actually_link(c,a,b):
   lower=min(a,b)
   higher=max(a,b)
-  print "\tLinking %s and %s" % ( lower, higher ) 
+  print("\tLinking %s and %s" % ( lower, higher ) )
   update = """insert into cf (a,b) values (%s,%s)""" % (lower,higher)
   try:
-    #print update
+    #print(update)
     c.execute(update)
     if (c.rowcount):
       pass
-      #print update
-  except MySQLdb.IntegrityError, e:
-    print "\tInsert error: %s" % e
+      #print(update)
+  except MySQLdb.IntegrityError as e:
+    print("\tInsert error: %s" % e)
 
 def mywarn(msg):
   answer = raw_input("WARN: %s. Continue [y|n]: " % msg)
@@ -532,32 +532,32 @@ def main():
 
   inputfile='words.txt'
   line_count = file_len(inputfile)
-  print "%s has %d lines" % (inputfile,line_count)
+  print("%s has %d lines" % (inputfile,line_count))
 
   skipmode = False
   for lineno, line in enumerate(codecs.open(inputfile)):
     line = line.decode('utf-8').strip()
     line = line.replace('’', "'")
-    print "%s %.2f Percent Done. Line %4d/%4d %s" % ("Skipping" if skipmode else "Processing", float(100.0*lineno/line_count),lineno,line_count,line)
+    print("%s %.2f Percent Done. Line %4d/%4d %s" % ("Skipping" if skipmode else "Processing", float(100.0*lineno/line_count),lineno,line_count,line))
     if skipmode and 'START' not in line:
       continue
     db.commit()
     if 'STOP' in line:
-      print "Hit Stop Point"
+      print("Hit Stop Point")
       sys.exit(0)
     elif 'SKIP' in line:
-      print "In skip mode"
+      print("In skip mode")
       skipmode = True
       continue
     elif 'START' in line:
-      print "Resuming processing after SKIP"
+      print("Resuming processing after SKIP")
       skipmode = False
       continue
     elif 'ECHO' in line:
-      print line
+      print(line)
       continue
     elif 'DIE' in line:
-      print line
+      print(line)
       sys.exit(0)
     parts = line.split('--')
     pieces = parts[0].split()
@@ -601,7 +601,7 @@ def main():
       del pieces[0]
       pal = ' '.join(pieces)
       eng = parts[1]
-      print "\tPhrase or example %s: %s -> %s" % (type,pal,eng)
+      print("\tPhrase or example %s: %s -> %s" % (type,pal,eng))
       if (type=='p'):
         try: 
           pos = parts[1].strip()
@@ -616,7 +616,7 @@ def main():
         explanation = parts[2]
         add_proverb(c,pal,eng,explanation,wid)
       else:
-        print "FATAL error.  Unrecognized entry %s" % line
+        print("FATAL error.  Unrecognized entry %s" % line)
         sys.exit(0)
     continue
 
@@ -627,10 +627,10 @@ def main():
 
   # move the file out of the way
   archive_name = "old/words.%d.txt" % int(time.time())
-  print "%s -> %s" % (inputfile,archive_name)
+  print("%s -> %s" % (inputfile,archive_name))
   os.rename(inputfile,archive_name)
 
-  print "Total updates: %d" % total_updates
+  print("Total updates: %d" % total_updates)
     
 if __name__ == "__main__": main()
 
