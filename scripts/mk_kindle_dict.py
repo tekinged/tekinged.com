@@ -104,7 +104,7 @@ def make_opf(OPF,COVER,COPYRIGHT,USAGE,CONTENT):
   <?xml version="1.0"?>
   <package version="2.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId">
   <metadata>
-    <dc:title>A Palauan dictionary created by tekinged.com V1</dc:title>
+    <dc:title>A Palauan dictionary created by tekinged.com V1.1</dc:title>
     <dc:creator opf:role="aut">tekinged.com</dc:creator>
     <dc:language>%s</dc:language>
     <meta name="cover" content="my-cover-image" />
@@ -156,57 +156,53 @@ def setup(DIR,COVER,COPYRIGHT,USAGE,OPF,CONTENT):
   make_usage(USAGE)
   make_opf(OPF,COVER,COPYRIGHT,USAGE,CONTENT)
 
-def add_word(fp, row,c):
-  print("Processing %s" % row['pal'])
+def add_word(fp, row, c):
 
-  # <idx:iform name="plural" value="records" />
-
-  # start the word
-  word = '''
-  <idx:entry name="default" scriptable="yes" spell="yes">
-    <h5><dt><idx:orth>%s</idx:orth></dt></h5>
-    <dd>%s: %s</dd>
-  ''' % (row['pal'], row['pos'], row['eng'] if row['eng'] else '')
-  fp.write(word)
-
-
-  # add any pdef; note that italics don't seem to work...
+  # the basic initial definition of the word
+  definition = "%s" % row['eng'] if row['eng'] else ''
   if row['pdef']:
-    fp.write('''
-      <br>
-      <dd><i>%s</i></dd>
-      ''' % (row['pdef']))
-
+    definition += "<br><i>%s</i>" % row['pdef']
 
   # now collect all words belonging to this stem
   query = "select pal,eng,pos,pdef from all_words3 where stem=%d and id != %d" % (row['stem'],row['stem'])
   c.execute(query)
   variants=''
   parts=''
-  for row in c.fetchall():
-    variants += ('<idx:iform name="%s" value="%s" />\n' % (row['pal'], row['pos']))
-    parts += ('<br><dd> - %s %s: %s' % (row['pal'],row['pos'],row['eng'] if row['eng'] else ''))
-    if row['pdef']:
-      parts += ('<br> -- <i>%s</i>' % row['pdef'])
 
-  # add each part of speech into the base definition
-  fp.write(parts)
+  # start the variants string
+  if c.rowcount > 0:
+    variants='\n%s<idx:infl>' % (' ' * 8)
 
-  # add the pos of the main word, not sure what that does if anything....
-  fp.write('<idx:infl inflgrp="%s">' % row['pos'])
+  # add to the variants string
+  for i,inner_row in enumerate(c.fetchall()):
+    indent = ' ' * 10 # to make the .html easier to read for testing and debugging
+    variants += '\n%s<idx:iform value="%s"></idx:iform>' % (indent, inner_row['pal'])
+    indent= ' ' * 6
+    parts += ('\n%s<br> - %s (%s) %s' % (indent,inner_row['pal'],inner_row['pos'],inner_row['eng'] if inner_row['eng'] else ''))
+    if inner_row['pdef']:
+      parts += ('\n%s<br> -- <i>%s</i>' % (indent,inner_row['pdef']))
+  definition += parts
 
-  # now add all the variants which should also pull up this entry
-  fp.write(variants)
+  # end the variants string
+  if c.rowcount > 0:
+    variants += '\n%s</idx:infl>' % (' ' * 8)
 
-  # end the word
-  fp.write('''
+
+  # following format found at https://kdp.amazon.com/en_US/help/topic/G2HXJS944GL88DNV#inflections
+  entry = """
+  <idx:entry name="english" scriptable="yes" spell="yes">
+    <idx:short><a id="{stem}"></a>
+      <idx:orth value="{pal}"><b>{headword}</b> ({pos})
+          {Variants}
+      </idx:orth>
+      <p> {Definition} </p>
+    </idx:short>
   </idx:entry>
-  <hr/>
-  ''')
+  """.format(stem=row['stem'], pal=row['pal'], headword=row['pal'], pos=row['pos'], Variants=variants, Definition=definition)
+  fp.write(entry)
 
 def add_words(fp,args):
   (db,c) = belau.connect()
-
 
   query = "select pal,eng,pos,pdef,stem from all_words3 where stem=id and pos != 'affix'"
   if (args.limit):
@@ -214,7 +210,9 @@ def add_words(fp,args):
   else:
     query += " order by pal"
   c.execute(query)
+  count = c.rowcount
   for i, row in enumerate(c.fetchall()):
+    print("Processing %30s [%5d / %5d]" % (row['pal'],i,count))
     add_word(fp,row,c)
     if (args.limit and i >= args.limit):
       print("Prematurely stopping due to specified limit of %d" % args.limit)

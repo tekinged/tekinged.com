@@ -44,9 +44,15 @@ def connect():
   #print "Connecting via tunnel"
   pword=os.getenv('TEK_PWD')
   puser=os.getenv('TEK_USR')
-  db=MySQLdb.connect(user=puser,passwd=pword,db="belau",host="127.0.0.1",port=3307,cursorclass=MySQLdb.cursors.DictCursor)
-  c=db.cursor()
-  return (db,c)
+  try:
+    db=MySQLdb.connect(user=puser,passwd=pword,db="belau",host="127.0.0.1",port=3307,cursorclass=MySQLdb.cursors.DictCursor)
+    c=db.cursor()
+    return (db,c)
+  except Exception as e:
+    print("Couldn't connect. Is tunnel set up?")
+    print(e)
+    raise(e)
+    sys.exit(-1)
 
 def insert(c,db,pal,pdef=None,edef=None,prompt=True,tag=None,pos=None):
   query = "insert into all_words3 (pal,pdef,eng,tags,pos) values (%s,%s,%s,%s,%s)"
