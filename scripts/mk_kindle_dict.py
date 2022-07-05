@@ -97,19 +97,19 @@ def end_wordlist(fp):
   fp.write(footer)
   fp.close()
 
-def make_opf(OPF,COVER,COPYRIGHT,USAGE,CONTENT):
+def make_opf(OPF,COVER,COPYRIGHT,USAGE,CONTENT,version):
   pal_iso='pw' # ugh, pw is not supported https://www.mobileread.com/forums/showthread.php?t=208217&
   pal_iso='en-us'
   opf_text='''
   <?xml version="1.0"?>
   <package version="2.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId">
   <metadata>
-    <dc:title>A Palauan dictionary created by tekinged.com V1.1</dc:title>
+    <dc:title>A Palauan dictionary created by tekinged.com V{Version}</dc:title>
     <dc:creator opf:role="aut">tekinged.com</dc:creator>
-    <dc:language>%s</dc:language>
+    <dc:language>{PW}</dc:language>
     <meta name="cover" content="my-cover-image" />
     <x-metadata>
-      <DictionaryInLanguage>%s</DictionaryInLanguage>
+      <DictionaryInLanguage>{PW}</DictionaryInLanguage>
       <DictionaryOutLanguage>en-us</DictionaryOutLanguage>
       <DefaultLookupIndex>default</DefaultLookupIndex>
     </x-metadata>
@@ -117,16 +117,16 @@ def make_opf(OPF,COVER,COPYRIGHT,USAGE,CONTENT):
   <manifest>
     <!-- <item href="cover-image.jpg" id="my-cover-image" media-type="image/jpg" /> -->
     <item id="cover"
-          href="%s"
+          href="{Cover}"
           media-type="application/xhtml+xml" />
     <item id="usage"
-          href="%s"
+          href="{Usage}"
           media-type="application/xhtml+xml" />
     <item id="copyright"
-          href="%s"
+          href="{Copyright}"
           media-type="application/xhtml+xml" />
     <item id="content"
-          href="%s"
+          href="{Content}"
           media-type="application/xhtml+xml" />
   </manifest>
   <spine>
@@ -136,15 +136,15 @@ def make_opf(OPF,COVER,COPYRIGHT,USAGE,CONTENT):
     <itemref idref="content"/>
   </spine>
   <guide>
-    <reference type="index" title="IndexName" href="%s"/>
+    <reference type="index" title="IndexName" href="{Content}"/>
   </guide>
   </package>
-  ''' % (pal_iso,pal_iso,COVER,USAGE,COPYRIGHT,CONTENT,CONTENT)
+  '''.format(Version=version, PW=pal_iso, Cover=COVER, Usage=USAGE, Copyright=COPYRIGHT, Content=CONTENT)
   o = open(OPF,'w+')
   o.write(opf_text)
   o.close()
 
-def setup(DIR,COVER,COPYRIGHT,USAGE,OPF,CONTENT):
+def setup(DIR,COVER,COPYRIGHT,USAGE,OPF,CONTENT,Version):
   try:
     os.mkdir(DIR)
   except FileExistsError:
@@ -154,7 +154,7 @@ def setup(DIR,COVER,COPYRIGHT,USAGE,OPF,CONTENT):
   make_cover(COVER)
   make_copyright(COPYRIGHT)
   make_usage(USAGE)
-  make_opf(OPF,COVER,COPYRIGHT,USAGE,CONTENT)
+  make_opf(OPF,COVER,COPYRIGHT,USAGE,CONTENT,Version)
 
 def add_word(fp, row, c):
 
@@ -233,14 +233,15 @@ def main():
   parser.add_argument('-v', action='store_true', default=False, help='Verbose.')
   args = parser.parse_args()
 
+  Version=1.2
 
   DIR='kindle_dict'
   WORDS='content.html'
   COVER='cover.html'
   COPYRIGHT='copyright.html'
   USAGE='usage.html'
-  OPF='belau.opf'
-  setup(DIR,COVER,COPYRIGHT,USAGE,OPF,WORDS)
+  OPF='belau_V%s.opf' % (Version)
+  setup(DIR,COVER,COPYRIGHT,USAGE,OPF,WORDS,Version)
 
   words = open(WORDS,"w+")
   start_wordlist(words) 
