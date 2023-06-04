@@ -6,12 +6,8 @@ include '../functions.php';
 $GLOBALS['DEBUG'] = false;
 
 Class PQuestion {
-  var $sentence;
-  var $answer;
-  var $correct;
-  var $myid;
 
-  function PQuestion($rows,$quiz) {
+  public function __construct($rows,$quiz) {
     $row = $rows->fetch_assoc(); 
     extract($row);
     $this->answer = $pal;
@@ -55,7 +51,7 @@ function pronoun_check_answer($question,$answer) {
   $correct = implode(' or ',$possibles);
   $question->setAnswer($correct);
   $score = get_score($possibles,$answer);
-  print "Answer is $answer; should be $correct [SCORE: $score].";
+  #print "Answer is $answer; should be $correct [SCORE: $score].";
   return score_to_result($score);
 }
 

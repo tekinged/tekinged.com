@@ -1,13 +1,15 @@
 <?php
 
 Class Quiz {
+  /*
   var $questions;
   var $correct;
   var $stems;
   var $total;
   var $extra_msg;
+  */
 
-  function Quiz() {
+  public function __construct() {
     $this->questions = 0;
     $this->correct = 0;
     $this->stems = array();
@@ -72,12 +74,8 @@ Class Quiz {
 };
 
 Class Question {
-  var $question;
-  var $answers;
-  var $correct;
-  var $myid;
 
-  function Question($rows,$quiz) {
+  public function __construct($rows,$quiz) {
     $this->answers = array();
     while($row = $rows->fetch_array(MYSQLI_NUM)) { 
       $this->answers[] = $row[1];

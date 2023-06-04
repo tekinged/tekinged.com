@@ -7,13 +7,8 @@ $GLOBALS['DEBUG'] = false;
 
 
 Class SynQuestion {
-  var $answers;
-  var $correct;
-  var $correct_pal;
-  var $question;
-  var $myid;
 
-  function SynQuestion($quiz) {
+  public function __construct($quiz) {
 
     # get the question word and its group
     $filter = "(1)"; # can later try to make sure it doesn't ask the same thing twice

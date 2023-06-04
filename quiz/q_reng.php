@@ -6,13 +6,8 @@ include '../functions.php';
 $GLOBALS['DEBUG'] = false;
 
 Class RengQuestion {
-  var $answers;
-  var $correct;
-  var $correct_pal;
-  var $question;
-  var $myid;
 
-  function RengQuestion($quiz) {
+  public function __construct($quiz) {
 
     # get the question word and its group
     $filter = $quiz->get_filter();

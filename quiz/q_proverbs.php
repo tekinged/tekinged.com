@@ -6,15 +6,8 @@ include '../functions.php';
 $GLOBALS['DEBUG'] = false;
 
 Class AQuestion {
-  var $sentence;
-  var $answers;
-  var $correct;
-  var $correctpal;
-  var $explanation;
-  var $english;
-  var $myid;
 
-  function AQuestion($rows,$quiz) {
+  public function __construct ($rows,$quiz) {
     $this->answers = array();
     while($row = $rows->fetch_assoc()) { 
       extract($row);

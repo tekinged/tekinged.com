@@ -120,7 +120,11 @@ function audio_play_button($filename,$word,$thumb=NULL) {
 }
 
 function remove_empty_lines($string){
-  return preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $string);
+  if ($string != Null ) {
+    return preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $string);
+  } else {
+    return $string;
+  }
 }
 
 function print_table($query, $show_header=True,$show_titles=True,$add_count=False,$extra_fp=NULL) {
@@ -156,7 +160,9 @@ function table_to_string($query, $show_header=True,$show_titles=True,$add_count=
             # remove empty blank lines
             # convert line breaks to <br>
             $cell = remove_empty_lines($cell);
-            $cell = nl2br($cell);
+            if ($cell != Null) {
+              $cell = nl2br($cell);
+            }
             if ($extra_fp !== NULL and $i==0) { 
               Debug("Using extra_fp on $row[$i]");
               $cell = $extra_fp($row); 

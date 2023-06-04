@@ -6,11 +6,6 @@ include '../functions.php';
 $GLOBALS['DEBUG'] = false;
 
 Class SynQuestion {
-  var $answers;
-  var $correct;
-  var $correct_pal;
-  var $question;
-  var $myid;
 
   function getAnswer($where,$limit,$order="rand()") {
     $q = "select a.pal as pal,a.id as id ,a.pos from all_words3 a inner join "
@@ -23,7 +18,7 @@ Class SynQuestion {
     return array($id,$pal);
   }
 
-  function SynQuestion($quiz) {
+  public function __construct($quiz) {
 
     # get the question word and its group
     $filter = "(1)"; # can later try to make sure it doesn't ask the same thing twice
