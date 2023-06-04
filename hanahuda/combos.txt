@@ -1,0 +1,56 @@
+# Months
+jan: mats / sechou: okeiim, tang
+feb: chume : okeiim, tang
+mar: sakura : okeiim, tang
+apr: mases : teruich, tang
+may: chudel : teruich, tang
+jun: bara : teruich, tang
+jul: babii : teruich, tang
+aug: buil : okeiim, teruich
+sep: kob : teruich, tang
+oct: ska : teruich, tang
+nov:nisoro : okeiim, teruich, tang
+dec:kiri : okeiim, teruich
+# Yaks
+ippai::150:mar1,sep1
+ippai:(there are two ippai):150:aug1,sep1
+teppo:(this is the union of the two ippai):300:mar1,aug1,sep1
+ksaiak::100:apr2,may2,jul2
+chauotang::150:jun2,sep2,oct2
+kodangko::150:jan2,feb2,mar2
+nisoro:(the only yak comprised from a single set):200:nov1,nov2,nov3
+inoskasio::300:jul1,oct1,jun1
+chume mats sakura::300:jan1,feb1,mar1
+mats kiri bo::300:jan1,aug1,dec1
+#Ume-match-kiri-bo:This may be a regional variation beteen different Palaun villages:400:jan1,aug1,dec1,feb1
+skok::500:jan1,aug1,dec1,mar1
+kokok::700:jan1,aug1,dec1,mar1,nov1
+arasi::1000:jan1,aug1,dec1,mar1,nov1,feb1
+nanatang:(any 7 tang):700:jan2,feb2,mar2,apr2,may2,jun2,jul2
+#Big score:All tens:10000:feb1,apr1,may1,jun1,jul1,aug2,spe1,oct1,nov2,dec2
+???:(all the teruich):10000:apr1,may1,jun1,jul1,aug2,sep1,oct1,nov2,dec2
+# Expressions
+aikal kloklek a di kas el rokui | my hand sucks | John Bent 
+chitsiobiki | being dealt three cards from the same set | Charlene Iramk
+kas | worthless cards | Charlene Iramk
+ke chitsiobiki ra ngerang? | in which suit are you chitsiobiki? | Charlene Iramk
+ke meduch el chosaer? | you good at preventing opponents from getting yaks? | Charlene Iramk
+le me'r ngak | deal the cards to me first | Charlene Iramk
+lakedimou surui | quit cheating  | John Bent 
+leko'r kaur | deal the cards to you first | Charlene Iramk
+me dou kat! | Let's play hanahuda! | Charlene Iramk
+mekabs er a okeiim | gonna lose to <i>arasi</i> | Charlene Iramk
+mekabs er a tang | gonna lose to <i>nanatang</i> | Charlene Iramk
+mekabs er a teruich | gonna lose to the tens | Charlene Iramk
+merous | deal | Charlene Iramk
+mg mora bar / ulaol | to the table | Charlene Iramk
+ng meral diak a omerolek | I don't have a good card to play now | Charlene Iramk
+ng mor? | where you want the cards to go? | Charlene Iramk
+ng souak el menga babii | hey partner, play a <i>babii</i> card |  John Bent
+ng techa milrous? | who dealt? | Charlene Iramk
+ngak a chitsiobiki | I have three cards in a suit. | Charlene Iramk
+omkais | flip the top card | Charlene Iramk
+okeiim | fifty point cards | Charlene Iramk
+tang | ribbon cards | Charlene Iramk
+teruich | ten point cards | Charlene Iramk
+yak | scoring combination | Charlene Iramk
