@@ -8,7 +8,7 @@ function html_top_no_body($title,$js=false,$extra=Null) {
     <html>
     <head>
         <meta charset=utf-8 />
-        <link rel='stylesheet' type='text/css' href='/css/belau.css' />
+        <link rel='stylesheet' type='text/css' href='/tekinged.com/css/belau.css' />
         <link rel='apple-touch-icon' sizes='57x57' href='/apple-touch-icon-57x57.png?v=3'>
         <link rel='apple-touch-icon' sizes='60x60' href='/apple-touch-icon-60x60.png?v=3'>
         <link rel='apple-touch-icon' sizes='72x72' href='/apple-touch-icon-72x72.png?v=3'>
@@ -589,10 +589,8 @@ function search_allwords($base,$pos_regx) {
 }
 
 Class Cf {
-  var $id;
-  var $pal;
 
-  function Cf($i,$p) {
+  public function __construct($i,$p) {
     $this->id = $i;
     $this->pal = strtoupper($p);
   }
@@ -649,16 +647,8 @@ function pwords_to_plinks($palauan) {
 }
 
 Class PWord {
-    var $pal;
-    var $eng;
-    var $pos;
-    var $origin;
-    var $oword;
-    var $isroot;
-    var $pdef;
-    var $id;
     
-    function PWord($p,$e,$pdef,$po=NULL,$origin=NULL,$id=NULL,$oword=NULL,$root=false) {
+    public function __construct($p,$e,$pdef,$po=NULL,$origin=NULL,$id=NULL,$oword=NULL,$root=false) {
         $this->isroot = $root;
         $this->pal = $p; $this->eng = $e; $this->pos = $po; $this->origin=$origin; $this->id=$id;
         $this->pdef = $pdef;
@@ -786,6 +776,7 @@ Class PWord {
 }
 
 Class Entry {
+    /*
     var $id;
     var $word;
     var $words = [];
@@ -798,6 +789,7 @@ Class Entry {
     var $root;
     var $pdef;
     var $pos;
+    */
 
     function getMain() { return $this->word->getWord(); }
     function id() { return $this->id; }
@@ -808,12 +800,17 @@ Class Entry {
       return "ENTRY: {$this->getMain()}\n";
     }
 
-    function Entry($pal,$eng,$pos,$origin,$db_id,$also,$oword,$root,$pdef) {
+    public function __construct($pal,$eng,$pos,$origin,$db_id,$also,$oword,$root,$pdef) {
         $this->id = $db_id;
         $this->root = $root;
         $this->word = new PWord($pal,$eng,$pdef,$pos,$origin,$db_id,$oword,true);
-        $this->words = array();
         $this->also = $also;
+        $this->words = array();
+        $this->examples = array();
+        $this->proverbs = array();
+        $this->sentences = array();
+        $this->cfs = array();
+        $this->syns = array();
         Debug("New entry for $pal $eng $pos $origin");
     }
 
@@ -1002,6 +999,7 @@ Class Entry {
         $whereb .= "||b=$id";
       }
       $q = "select b from cf where $wherea union all select a from cf where $whereb";
+      Debug("Trying to add cfs with $q");
       $r = query_or_die($q);
       while ($row = $r->fetch_array(MYSQLI_NUM)) {
         $this->AddCf($row[0]);

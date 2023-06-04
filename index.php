@@ -5,7 +5,7 @@ $title="Palauan-English Dictionary";
 html_top($title,true);
 belau_header($title);
 
-$GLOBALS['DEBUG'] = true;
+$GLOBALS['DEBUG'] = false;
 $_SESSION['direction'] = 'pe'; # default
 
 $found = false;
