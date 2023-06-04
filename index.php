@@ -5,7 +5,7 @@ $title="Palauan-English Dictionary";
 html_top($title,true);
 belau_header($title);
 
-$GLOBALS['DEBUG'] = false;
+$GLOBALS['DEBUG'] = true;
 $_SESSION['direction'] = 'pe'; # default
 
 $found = false;
@@ -157,6 +157,8 @@ if( $force_lookup && (strlen($target)>0 || $specific_target != NULL) ) {
         $miss_msg .= "<ul>\n"; 
         $flinks = array();
         foreach ($fuzzies as $fuzzy) {
+          $fword = $fuzzy->getWord();
+          Debug("Making button for $fword");
           $link = button_as_link($fuzzy->getWord(),$direction,strtoupper($fuzzy->getWord()));
           $flinks[] = $link;
           #$miss_msg .= "<li>Did you mean $link ?</li>\n";

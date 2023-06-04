@@ -243,6 +243,7 @@ function is_johnbent() {
   $jb[] = "50.130.223.152";
   $jb[] = "134.204.220.36";
   $jb[] = "134.204.222.36";
+  $jb[] = "76.113.28.53";
   foreach ($jb as $jip) {
     if ($ip == $jip) {
       return 1;
@@ -511,16 +512,19 @@ function query_or_die($query) {
 }
 
 Class FuzzyMatch {
-    var $word;
-    var $score;
+    #var $word;
+    #var $score;
 
     function getWord()  { return $this->word; }
     function getScore() { return $this->score; }
 
-    function FuzzyMatch($word,$score) {
+
+    public function __construct(private string $word, private float $score) {
+        #Debug("Creating new fuzzy match object with $word");
         $this->word = $word;
         $this->score = $score; 
     }
+
 }
 
 function find_fuzzy($input,$column) {
@@ -539,7 +543,7 @@ function find_fuzzy($input,$column) {
     $array[] = $row[0];
   }
 
-  Debug("Fuzzy search for $input in $column in " . count($array) . " words");
+  Debug("Fuzzy search for $input in $column found " . count($array) . " words");
 
   // loop through words to find the closest
   $target_matches = 5;
@@ -559,9 +563,12 @@ function find_fuzzy($input,$column) {
       // distance, OR if a next shortest word has not yet been found
       if ($percent > $best[$target_matches-1]->getScore()) { 
           // set the closest match, and shortest distance
-          $best[$target_matches] = new FuzzyMatch($word,$percent);
+          $fword = new FuzzyMatch($word,$percent);
+          $best[$target_matches] = $fword; 
           usort($best,"fuzzy_sort");
-          Debug("Set closest so far between $input and $word ($lev, $percent)");
+          $bword = $best[0]->getWord();
+          $fword = $fword->getWord();
+          Debug("Set closest so far between $input and $word ($lev, $percent); best so far is $bword ($fword)");
       }
   }
   return $best;
@@ -1098,7 +1105,14 @@ function interesting_sort($a,$b) {
 }
 
 function fuzzy_sort($a,$b) {
-  return ($a->getScore() < $b->getScore());
+  if ($a->getScore() < $b->getScore()) {
+    return 1;
+  } else if ($a->getScore() > $b->getScore()) {
+    return -1;
+  } else {
+    return 0;
+  }
+  #return ($a->getScore() <=> $b->getScore());
 }
 
 function subentry_sort($a,$b) {
