@@ -1,0 +1,341 @@
+<?php 
+include '../functions.php'; 
+include '../quiz/quiz.php';
+$title = "Palauan Hanahuda";
+html_top($title);
+belau_header($title);
+?>
+
+<div id="content-container">
+
+<div id='aside'>
+<ul id="list-nav">
+<li><a href="#cards">The cards</a></li>
+<li><a href="#play">The rules</a></li>
+<li><a href="#yaks">The yaks</a></li>
+<li><a href="#expressions">Expressions</a></li>
+</ul>
+</div>
+
+<div id="content">
+<CENTER>
+<H1><B>Hanahuda</B></H1>
+<H2><B>Me dou kat!</B></H2>
+</CENTER>
+<P>
+Palauns play a card game named <I>hanahuda</I> derived from a 
+variant of the Japanese game, <I>hanafuda</I>.  The game play is the same,
+but the scoring is slightly different.  An older version of this webpage 
+included both the Palaun and Japanese translations.  This version is now
+exclusively focused on the Palaun variant.  The original webpage is archived
+<a href="./japanese.html">here</a>.  
+<HR>
+<a name=cards>
+<B>The Cards</B>
+<P class="hana">The cards are divided into twelve sets.  Any card in a set can 
+be used to capture any other card in that set.  A card can not capture a card
+from a different set.  
+Six of the sets have an <I>okeiim</I> (fifty) card: 
+the first cards in the <i>mats</i>, <i>chume</i>, <i>sakura</i>, <i>buil</i>, <i>nisoro</i>, and <i>kiri</i> sets. 
+Ten of the sets (all except <i>buil</i> and <i>kiri</i>) have 
+<i>tang</i> cards; these are the ones with the ribbons.  Decorated cards in
+a set that aren't <i>tang</i> or <i>okeiim</i> are <i>teruich</i> (ten); nine
+sets each have one <i>teruich</i> card.  For
+example, the first cards in the <i>mases</i>, <i>chudel</i>, <i>bara</i>, and <i>babii</i> sets are
+<i>teruich</i>.  The other (undecorated) cards are <i>kas</i> (trash).  The
+final two cards in each set below (except for <i>nisoro</i>) are <i>kas</i>.  <i>Nisoro</i>
+is the only set that has just one <i>kas</i>.
+<p class="hana">
+Palauns typically have a name for one card in a set
+and then refer to all cards in that set by that name. For example, 
+<I>sechou</I> is often
+used to refer to the <I>okeiim</I> card in the first set below and then other 
+cards in that set can be referred to as <i>tang er a sechou</i> or 
+<i>kas er a sechou</i>.  A <i>teruich</i> card can be referred to in the 
+same way (e.g. <i>teruich er a buil</i>). [Hover over a card to see the name
+of that card.]
+<P>
+<TABLE BORDER=1 CELLSPACING=2 CELLPADDING=5>
+<TR>
+	<TD ALIGN="center"><B> mats / sechou</B>	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a mats / sechou" SRC="cards/jan1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a mats / sechou" SRC="cards/jan2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a mats / sechou" SRC="cards/jan3.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a mats / sechou" SRC="cards/jan4.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B> chume </B>	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a chume " SRC="cards/feb1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a chume " SRC="cards/feb2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a chume " SRC="cards/feb3.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a chume " SRC="cards/feb4.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B> sakura </B>	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a sakura " SRC="cards/mar1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a sakura " SRC="cards/mar2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a sakura " SRC="cards/mar3.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a sakura " SRC="cards/mar4.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B> mases </B>	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a mases " SRC="cards/apr1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a mases " SRC="cards/apr2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a mases " SRC="cards/apr3.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a mases " SRC="cards/apr4.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B> chudel </B>	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a chudel " SRC="cards/may1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a chudel " SRC="cards/may2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a chudel " SRC="cards/may3.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a chudel " SRC="cards/may4.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B> bara </B>	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a bara " SRC="cards/jun1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a bara " SRC="cards/jun2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a bara " SRC="cards/jun3.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a bara " SRC="cards/jun4.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B> babii </B>	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a babii " SRC="cards/jul1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a babii " SRC="cards/jul2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a babii " SRC="cards/jul3.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a babii " SRC="cards/jul4.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B> buil </B>	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a buil " SRC="cards/aug1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a buil " SRC="cards/aug2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a buil " SRC="cards/aug3.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a buil " SRC="cards/aug4.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B> kob </B>	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a kob " SRC="cards/sep1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a kob " SRC="cards/sep2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a kob " SRC="cards/sep3.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a kob " SRC="cards/sep4.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B> ska </B>	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a ska " SRC="cards/oct1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a ska " SRC="cards/oct2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a ska " SRC="cards/oct3.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a ska " SRC="cards/oct4.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B>nisoro </B>	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a nisoro " SRC="cards/nov1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a nisoro " SRC="cards/nov2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a nisoro " SRC="cards/nov3.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a nisoro " SRC="cards/nov4.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B>kiri </B>	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a kiri " SRC="cards/dec1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a kiri " SRC="cards/dec2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a kiri " SRC="cards/dec3.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE="kas er a kiri " SRC="cards/dec4.gif">&nbsp;
+</TABLE><A name=play><BR><HR><P><B>The rules</B>
+<P>
+<TABLE WIDTH = 65%><TR>
+<TD>
+<P class="hana">
+
+The dealer shuffles the cards.  Experienced players shuffle in a really cool
+way that looks nothing like how Americans shuffle cards.  They throw a few
+cards from a shrinking stack in one hand to a growing stack in another.
+Inexperienced players just place the cards flat on the table and mix them all
+up by moving them around.  The dealer offers the shuffled deck to the player on
+her right (the cutter) who can cut them if she desires.  If she cuts them, she
+takes a small number of cards from the top of the deck, looks at the bottom
+card, and then places those cards in the middle of the table.  The dealer then
+asks the cutter how she wants the cards distributed.  She can either ask for
+the cards to go to the table first or to her.  If she asks for the cards to
+come to her, the dealer then deals her 10 cards (9 in a 3 player game, 8 in a 4
+player game).  The dealer then gives out cards to the rest of the players and
+then places 10 (or 9, or 8) cards face-up circling the cards that the cutter
+placed in the middle of the table.  The dealer then places the rest of the
+cards on top of the cards that the cutter placed in the middle of the table.
+The cutter can also ask for half of the cards to be given to her and then
+half to the table.  Or the cutter can ask for the cards to go to the table 
+first and then to the players.  The cutter's knowledge of the bottom 
+card can be a large advantage at the end of the game.  If any player has
+three of the same set (<i>chitsiobiki</i>), that player can trade one of
+those cards for a new card from the deck.  Other players may ask that 
+player to show all three cards.
+</p>
+
+<p class="hana">
+In the
+four player game, players on opposite sides of the table are a team.  Players
+alternate.  On a turn, first a player plays a card from hand, capturing a
+face-up card if it is in a set with the played card.  Otherwise the played
+card is added to the face-up collection.  The same player then draws the top
+stack card and attempts to capture a face-up card.  If no capture is possible
+the card is just added to the face-up collection.  The action of playing the
+top stack card is called <I>omkais</I>.  Dealing is <I>merous</I>.  The
+losing player (or team) deals for the next round.  When playing in teams,
+one player typically collects and arranges the captured cards for both players 
+on that team; this is called <i>omechobech</i>.  Cards are organized by
+grouping the <i>okeiim</I>, the <i>tang</i>, the <i>teruich</i>, and the
+<i>kas</i>.  The <i>kas</i> cards are typically just thrown in a pile while
+the others are nicely placed in a vertical stack so that each card can easily
+be seen.  When other players are curious about the captured <i>kas</i>, they
+can ask the player to spread them out so that they can be identified. 
+
+<P class="hana"> To score, players must collect </i><i>yak</i>s</i> (various
+combinations of cards).  If no <i>yak</i>s are collected, then the sum of the
+<i>okeiim</I> and the <i>teruich</i> cards can be used to determine a winner or
+the game can be called a draw.  If a player (or team) gets <i>arasi</i> or
+</i>nanatang</i>, then that player can choose to end the round prematurely.  If
+she does so, the round ends at that time and only that <i>yak</i> is scored.
+The game continues through multiple rounds until one team reaches a
+predetermined score such as 5000 points.
+
+</P>
+<TD><IMG WIDTH="180" hspace=10 HEIGHT="120" SRC="layout.gif">&nbsp;
+</TABLE>
+<BR><HR><P><A name=yaks><B>The yaks</B>
+<TABLE BORDER=1 CELLSPACING=2 CELLPADDING=5>
+<TR>
+	<TD ALIGN="center"><B>ippai</B><br><i></i>
+	<TD ALIGN="right">150
+	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a sakura " SRC="cards/mar1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a kob " SRC="cards/sep1.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B>ippai</B><br><i>(there are two ippai)</i>
+	<TD ALIGN="right">150
+	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a buil " SRC="cards/aug1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a kob " SRC="cards/sep1.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B>teppo</B><br><i>(this is the union of the two ippai)</i>
+	<TD ALIGN="right">300
+	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a sakura " SRC="cards/mar1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a buil " SRC="cards/aug1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a kob " SRC="cards/sep1.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B>ksaiak</B><br><i></i>
+	<TD ALIGN="right">100
+	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a mases " SRC="cards/apr2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a chudel " SRC="cards/may2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a babii " SRC="cards/jul2.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B>chauotang</B><br><i></i>
+	<TD ALIGN="right">150
+	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a bara " SRC="cards/jun2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a kob " SRC="cards/sep2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a ska " SRC="cards/oct2.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B>kodangko</B><br><i></i>
+	<TD ALIGN="right">150
+	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a mats / sechou" SRC="cards/jan2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a chume " SRC="cards/feb2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a sakura " SRC="cards/mar2.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B>nisoro</B><br><i>(the only yak comprised from a single set)</i>
+	<TD ALIGN="right">200
+	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a nisoro " SRC="cards/nov1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a nisoro " SRC="cards/nov2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a nisoro " SRC="cards/nov3.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B>inoskasio</B><br><i></i>
+	<TD ALIGN="right">300
+	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a babii " SRC="cards/jul1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a ska " SRC="cards/oct1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a bara " SRC="cards/jun1.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B>chume mats sakura</B><br><i></i>
+	<TD ALIGN="right">300
+	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a mats / sechou" SRC="cards/jan1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a chume " SRC="cards/feb1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a sakura " SRC="cards/mar1.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B>mats kiri bo</B><br><i></i>
+	<TD ALIGN="right">300
+	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a mats / sechou" SRC="cards/jan1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a buil " SRC="cards/aug1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a kiri " SRC="cards/dec1.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B>skok</B><br><i></i>
+	<TD ALIGN="right">500
+	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a mats / sechou" SRC="cards/jan1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a buil " SRC="cards/aug1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a kiri " SRC="cards/dec1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a sakura " SRC="cards/mar1.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B>kokok</B><br><i></i>
+	<TD ALIGN="right">700
+	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a mats / sechou" SRC="cards/jan1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a buil " SRC="cards/aug1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a kiri " SRC="cards/dec1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a sakura " SRC="cards/mar1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a nisoro " SRC="cards/nov1.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B>arasi</B><br><i></i>
+	<TD ALIGN="right">1000
+	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a mats / sechou" SRC="cards/jan1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a buil " SRC="cards/aug1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a kiri " SRC="cards/dec1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a sakura " SRC="cards/mar1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a nisoro " SRC="cards/nov1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" okeiim er a chume " SRC="cards/feb1.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B>nanatang</B><br><i>(any 7 tang)</i>
+	<TD ALIGN="right">700
+	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a mats / sechou" SRC="cards/jan2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a chume " SRC="cards/feb2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a sakura " SRC="cards/mar2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a mases " SRC="cards/apr2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a chudel " SRC="cards/may2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a bara " SRC="cards/jun2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" tang er a babii " SRC="cards/jul2.gif">&nbsp;
+<TR>
+	<TD ALIGN="center"><B>toiak(?)<B><br><i>(all the teruich)</i>
+	<TD ALIGN="right">10000
+	<TD>
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a mases " SRC="cards/apr1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a chudel " SRC="cards/may1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a bara " SRC="cards/jun1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a babii " SRC="cards/jul1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a buil " SRC="cards/aug2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a kob " SRC="cards/sep1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a ska " SRC="cards/oct1.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a nisoro " SRC="cards/nov2.gif">&nbsp;
+		<IMG WIDTH="41" HEIGHT="70" TITLE=" teruich er a kiri " SRC="cards/dec2.gif">&nbsp;
+</TABLE><BR><HR><P><A name=expressions><B>Terminology and frequently heard expressions</B><br>
+<UL>
+<li class="terms"><i>aikal kloklek a di kas el rokui </i> <ul><li> my hand sucks (submitted by  John Bent )</ul>
+<li class="terms"><i>chitsiobiki </i> <ul><li> being dealt three cards from the same set (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>kas </i> <ul><li> worthless cards (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>ke chitsiobiki ra ngerang? </i> <ul><li> in which suit are you chitsiobiki? (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>ke meduch el chosaer? </i> <ul><li> you good at preventing opponents from getting yaks? (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>le me'r ngak </i> <ul><li> deal the cards to me first (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>lakedimou surui </i> <ul><li> quit cheating  (submitted by  John Bent )</ul>
+<li class="terms"><i>leko'r kaur </i> <ul><li> deal the cards to you first (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>me dou kat! </i> <ul><li> Let's play hanahuda! (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>mekabs er a okeiim </i> <ul><li> gonna lose to <i>arasi</i> (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>mekabs er a tang </i> <ul><li> gonna lose to <i>nanatang</i> (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>mekabs er a teruich </i> <ul><li> gonna lose to the tens (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>merous </i> <ul><li> deal (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>mg mora bar / ulaol </i> <ul><li> to the table (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>ng meral diak a omerolek </i> <ul><li> I don't have a good card to play now (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>ng mor? </i> <ul><li> where you want the cards to go? (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>ng souak el menga babii </i> <ul><li> hey partner, play a <i>babii</i> card (submitted by   John Bent)</ul>
+<li class="terms"><i>ng techa milrous? </i> <ul><li> who dealt? (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>ngak a chitsiobiki </i> <ul><li> I have three cards in a suit. (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>omkais </i> <ul><li> flip the top card (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>okeiim </i> <ul><li> fifty point cards (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>tang </i> <ul><li> ribbon cards (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>teruich </i> <ul><li> ten point cards (submitted by  Charlene Iramk)</ul>
+<li class="terms"><i>yak </i> <ul><li> scoring combination (submitted by  Charlene Iramk)</ul>
+</UL>
+</div>
+</div>
+<?php belau_footer("/hanahuda/index.php", ": hanahuda"); ?>

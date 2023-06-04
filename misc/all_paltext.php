@@ -1,0 +1,1 @@
+alltext.php
