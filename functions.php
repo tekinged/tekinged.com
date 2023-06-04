@@ -1386,7 +1386,7 @@ function get_words($query,$group=True,$tag=NULL,$specific_target=Null) {
     assert($num_rows==1, "WTF: More than one result for $q");
     $row = $res->fetch_assoc(); 
     $entry = new Entry($row['pal'],$row['eng'],$row['pos'],$row['origin'],$stem,Null,$row['oword'],$row['stem'],$row['pdef']);
-    $entries{$stem} = $entry;
+    $entries[$stem] = $entry;
 
     if ( ! $group ) { 
       # don't group for branches if grouping is off 
