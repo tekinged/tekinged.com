@@ -627,7 +627,8 @@ Class Cf {
       'string' => $this->pal,
       'field'  => 'lookup_id',
     );
-    return real_button_as_link($config);
+    return pwords_to_plinks($this->pal);
+    #return real_button_as_link($config);
   }
 
 }
