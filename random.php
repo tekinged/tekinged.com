@@ -19,7 +19,8 @@ belau_header($title);
             ?>
             
             <p>
-            <a href="random.php">Click for five new random words</a>
+              <!-- need a link to refresh the page -->
+              <a href="#" onclick="window.location.reload(true);">Click for five new random words</a>
         </div>
 
         <?php belau_footer("/random.php"); ?>
