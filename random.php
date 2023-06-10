@@ -3,6 +3,7 @@ include 'functions.php';
 $title="Five Random Palauan Words";
 html_top($title);
 belau_header($title);
+$DEBUG=false;
 ?>
 
     <div id="content-container">
@@ -15,7 +16,7 @@ belau_header($title);
             echo "<h2>$title</h2>"; 
             echo "<p class='tab'>";
             $nvulg = not_vulgar();
-            print_table("select pal as Palauan,eng as English from all_words3 where length(eng)>0 and pos not like 'var.' and $nvulg order by rand() limit 5"); 
+            print_table("select pal as Palauan,eng as English from all_words3 where length(eng)>0 and pos not like 'var.' and $nvulg order by rand() limit 5",True,False); 
             ?>
             
             <p>

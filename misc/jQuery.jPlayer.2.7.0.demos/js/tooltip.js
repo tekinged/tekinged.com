@@ -9,7 +9,7 @@ $(document).ready(function(){
         ui.tooltip.css("max-width", "500px");
  
         $.ajax({
-            url:'dynamic_definition.php',
+            url:'/dynamic_definition.php',
             type:'post',
             data:{userid:userid},
             success: function(response){

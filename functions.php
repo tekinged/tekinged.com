@@ -128,12 +128,14 @@ function remove_empty_lines($string){
 }
 
 function print_table($query, $show_header=True,$show_titles=True,$add_count=False,$extra_fp=NULL) {
+  Debug("Generating table with $query");
   $table = table_to_string($query,$show_header,$show_titles,$add_count,$extra_fp);
   echo $table;
 }
 
 function table_to_string($query, $show_header=True,$show_titles=True,$add_count=False,$extra_fp=NULL) {
     // sending query
+    Debug("Generating table from $query");
     $result = mysqli_query($GLOBALS['mysqli'],$query);
     if (!$result) {
         die("Query $query to show fields from table failed");
@@ -653,9 +655,9 @@ function pwords_to_plinks($palauan) {
       #$pword = strip_punctuation($pword);
       $clean_pword = strip_punctuation($pword);
       $id = uniqid($clean_pword); 
-      $div_start = "\t\t\t<div class='dynamic_definition'><span style='white-space:nowrap' title='Please wait for $clean_pword' data-id='$clean_pword' id='$id'>";
+      $div_start = "\t\t\t<div class='dynamic_definition'><span style='white-space:nowrap' title='Please wait for $clean_pword ($pword : $id)' data-id='$clean_pword' id='$id'>";
       $div_end   = " </span></div>\n";
-      $href = "<a href=?p=$clean_pword class='pdeflink' >$pword</a>";
+      $href = "<a href=/index.php?p=$clean_pword class='pdeflink' >$pword</a>";
       $plinks[] = "$div_start $href $div_end";
         // or with POST
       //$plinks[] = button_as_link($pword,$direction=NULL,$pword,$page=NULL);
