@@ -6,17 +6,8 @@ include '../functions.php';
 $GLOBALS['DEBUG'] = false;
 
 Class PQuestion {
-  var $pal;
-  var $pos;
-  var $answer;
-  var $eng;
-  var $apos;
-  var $aid;
-  var $wid;
-  var $stem;
-  var $myid;
 
-  function PQuestion($rows,$quiz) {
+  public function __construct($rows,$quiz) {
     $row = $rows->fetch_assoc(); 
     extract($row);
     $this->pal = $pal;

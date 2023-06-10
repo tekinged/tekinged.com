@@ -6,12 +6,8 @@ include '../functions.php';
 $GLOBALS['DEBUG'] = false;
 
 Class TQuestion {
-  var $answers;
-  var $correct;
-  var $question;
-  var $myid;
 
-  function TQuestion($rows,$quiz) {
+  public function __construct($rows,$quiz) {
     $row = $rows->fetch_assoc(); 
     extract($row);
     $this->question = $q; 

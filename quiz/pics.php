@@ -7,12 +7,8 @@ include '../functions.php';
 $GLOBALS['DEBUG'] = false;
 
 Class PQuestion {
-  var $word;
-  var $answers;
-  var $correct;
-  var $myid;
 
-  function PQuestion($rows,$quiz) {
+  public function __construct($rows,$quiz) {
     $this->answers = array();
     while($row = $rows->fetch_array(MYSQLI_NUM)) { 
       # the first one that comes in is the correct one
