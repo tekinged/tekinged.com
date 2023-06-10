@@ -672,7 +672,11 @@ Class PWord {
       if ($a != NULL and $b != NULL and strlen($a) > 0 and strlen($b) > 0) {
         return implode($d,array($a,$b));
       } else {
-        return (strlen($a) > 0 ? $a : $b);
+        if ($a != NULL) {
+          return (strlen($a) > 0 ? $a : $b);
+        } else {
+          return $b;
+        }
       }
     }
 
