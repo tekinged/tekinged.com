@@ -139,6 +139,10 @@ function table_to_string($query, $show_header=True,$show_titles=True,$add_count=
         die("Query $query to show fields from table failed");
     }
 
+    // some fields are pal text and we want to turn them into tooltips
+    // this array is the list of possible columns (fields) that are Palauan text
+    $pal_text = array("Root Word", "Palauan", "Omesodel");
+
     $fields_num = $result->field_count; 
 
     list($hdr,$fields) = generate_table_header($result,$show_header,$add_count);
@@ -164,10 +168,14 @@ function table_to_string($query, $show_header=True,$show_titles=True,$add_count=
               $cell = nl2br($cell);
             }
             if ($extra_fp !== NULL and $i==0) { 
-              Debug("Using extra_fp on $row[$i]");
+              Debug("Using extra_fp on $row[$i] in field $fields[$i]");
               $cell = $extra_fp($row); 
             } else {
-              Debug("Not using extra_fp");
+              Debug("Not using extra_fp in field $fields[$i]");
+            }
+            if (in_array($fields[$i], $pal_text)) {
+              Debug("Need to convert $cell to tooltips");
+              $cell = pwords_to_plinks($cell);
             }
             if ($show_titles) {
               $ft = gettype($fields);
@@ -634,6 +642,9 @@ function pwords_to_plinks($palauan) {
     }
     */
     Debug("Turning pwords $palauan into plinks.");
+    if ($palauan == NULL) {
+      return NULL;
+    }
     $pwords = preg_split('/\s+/', $palauan);
     $plinks = array();
     foreach ($pwords as $pword) {
