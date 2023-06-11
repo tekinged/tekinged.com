@@ -747,7 +747,7 @@ Class PWord {
         if ( isset($pics[$this->id]) ) {
           $items[] = make_thumbnail($pics[$this->id]);
         }
-        if (strlen($this->pos)>0){
+        if ($this->pos != Null && strlen($this->pos)>0){
           $items[] = "<i>" . $this->pos . "</i>";
         }
         $origin = $this->originToString();
@@ -1201,6 +1201,14 @@ function entry_sort($a,$b) {
   $b_pos = $b->getPos();
   Debug("ENTRY SORT: $a ($a_pos) vs $b ($b_pos)");
 
+  if ($a_pos == Null) {
+    return -1;
+  }
+
+  if ($b_pos == Null) {
+    return 1;
+  }
+
   # if both expressions, just alpha sort
   if (strpos($a_pos,'expr') !== False and strpos($b_pos,'expr') !== False) {
     return strcmp($a->getMain(),$b->getMain());
@@ -1372,7 +1380,7 @@ function get_words($query,$group=True,$tag=NULL,$specific_target=Null) {
 
   # check to make sure the query is of the expected value
   # we should really go through and change this so callers pass the where and this supplies the rest of the query to make sure it is properly consistent
-  $needle = "select id,stem,pos,pal from all_words3 where";
+  $needle = "select id,stem,pos,pal";
   if (strpos($query, $needle) === false) {
     print("Unexpected query in get_words: $query");
   } 
@@ -1516,7 +1524,7 @@ $GLOBALS['interesting'] = array(
   'cheled'  => array("a.tags rlike 'cheled'",                                   "Cheled (sea food)",'table'),
   'malk'    => array("a.tags rlike 'malk'",                                     "Chickens",'table'),
   'color'   => array("a.tags rlike 'color'",                                    "Colors",'table'),
-  'quiz'    => array("pal in (select Palauan from quiz_hard)",                  "Difficult Quiz Words",'words'),
+  'quiz'    => array("pal in (select Palauan from quiz_hard) limit 999",        "Difficult Quiz Words",'words'),
   'chief'   => array("a.tags rlike 'chief'",                                    "Dui (titles)",'table'),
   'fish'    => array("a.tags rlike 'fish' and a.tags not rlike 'fishing'",      "Fish",'table'),
   'fishing' => array("a.tags rlike 'fishing'",                                  "Fishing Terms",'table'),
