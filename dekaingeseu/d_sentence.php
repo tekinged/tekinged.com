@@ -3,6 +3,8 @@ session_start();
 include 'dekaingeseu.php';
 include '../functions.php';
 
+$GLOBALS['DEBUG'] = true;
+
 function sentence_record_task($result,$config) {
   $debug=false;
   if ($debug) {
@@ -86,7 +88,7 @@ function make_sentence_page($options) {
   # variables that dekaingeseu needs
   $config['intro'] = "Help create and upload example sentence to help people learn Palauan as a second language."; 
   $where = "uploaded != 1";
-  $config['extra_update'] = $q;
+  $config['extra_update'] = Null; # $q;
   $config['get_total'] = ""; 
   #$config['get_count'] = ""; 
   $config['table'] = $table; 
@@ -95,7 +97,9 @@ function make_sentence_page($options) {
   $config['timeout'] = 1500; # this should be irrelevant... 
 
   # extra variables that we use ourselves
+  Debug("Calling into the class<br>");
   $task = new Dekaingeseu($title,$config);
+  Debug("Returned from call into the class<br>");
 }
 
 simple_sentence_page(Null,Null);

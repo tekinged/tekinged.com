@@ -260,6 +260,7 @@ function is_johnbent() {
   $jb[] = "134.204.220.36";
   $jb[] = "134.204.222.36";
   $jb[] = "76.113.28.53";
+  $jb[] = "202.124.224.64";
   foreach ($jb as $jip) {
     if ($ip == $jip) {
       return 1;
@@ -535,10 +536,10 @@ Class FuzzyMatch {
     function getScore() { return $this->score; }
 
 
-    public function __construct(private string $word, private float $score) {
+    public function __construct(string $private_word, float $private_score) {
         #Debug("Creating new fuzzy match object with $word");
-        $this->word = $word;
-        $this->score = $score; 
+        $this->word = $private_word;
+        $this->score = $private_score; 
     }
 
 }

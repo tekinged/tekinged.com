@@ -83,14 +83,15 @@ Class Dekaingeseu {
     #   varchar assignee
     #   timestamp submitted
     #   timestamp assigned
-    function Dekaingeseu($title,$config) {
+    function __construct($title,$config) {
+      print("Setting title to $title");
       $this->title = $title;
       $this->intro = $config['intro'];
       $this->config = $config;
       $this->table = $config['table'];
       $this->url = curPageURL();
       $this->makePage();
-      Debug("Setting url to $this->url");
+      print("Setting url to $this->url");
     }
 
     function getCount($w=NULL) {
