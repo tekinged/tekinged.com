@@ -3,7 +3,7 @@ session_start();
 include 'dekaingeseu.php';
 include '../functions.php';
 
-$GLOBALS['DEBUG'] = true;
+$GLOBALS['DEBUG'] = false;
 
 function sentence_record_task($result,$config) {
   $debug=false;
