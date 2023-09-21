@@ -48,7 +48,7 @@ belau_header($title);
         <p class='tab'>
         <div>
         <?php
-            show_words("select id,stem from all_words3 where pos like 'v.r.s.' and length(eng) > 1 order by rand() limit 7",False);
+            show_words("select id,stem,pos,pal from all_words3 where pos like 'v.r.s.' and length(eng) > 1 order by rand() limit 7",False);
             #print_table("select * from verb_adjs order by rand() limit 7");
         ?>
         </div>
@@ -62,7 +62,7 @@ belau_header($title);
         <i>before</i> a verb is anticipated to modify it.  Here's seven random Anticipating State Verbs:
         <p class='tab'>
         <?php
-            show_words("select id,stem from all_words3 where pos like 'v.a.s.' and length(eng) > 1 order by rand() limit 7",False);
+            show_words("select id,stem,pos,pal from all_words3 where pos like 'v.a.s.' and length(eng) > 1 order by rand() limit 7",False);
         ?>
         </p>
 

@@ -6,7 +6,7 @@ Class Dictionary {
   var $esearch;
   var $images;
 
-  function Dictionary($t,$s,$e,$i) {
+  function __construct($t,$s,$e,$i) {
     $this->title = $t;
     $this->search = $s;
     $this->esearch = $e;

@@ -68,6 +68,8 @@ function main_page() {
     $_SESSION['completed'] = 0;
   } 
 
+  global $title;
+
   if ( ! isset($_SESSION['worker']) ) {
     html_top($title);
     recorder_start_page($title);

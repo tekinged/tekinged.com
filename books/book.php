@@ -31,7 +31,7 @@ Class Book {
     var $title;
     var $options;
 
-    function Book($title,$toc,$lastpage,$aside,$intro,$url,$base,$options=Null) {
+    function __construct($title,$toc,$lastpage,$aside,$intro,$url,$base,$options=Null) {
       $this->title = $title;
       $this->toc = $toc;
       $this->lastpage = $lastpage;
@@ -94,7 +94,7 @@ Class Book {
             echo "<table><tr><td>\n";
           }
           $cur_section = $this->addToc($pageno) ?? ''; 
-          if ($this->options && ($this->options['search'] || $this->options['esearch'])) {
+          if ($this->options && (($this->options['search'] ?? false) || ($this->options['esearch'] ?? false))) {
             $sb = $this->get_search_boxes();
             echo $sb;
           }

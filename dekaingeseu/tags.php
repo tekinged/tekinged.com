@@ -132,7 +132,7 @@ function tag_record_task($result) {
       $success = 0;
   }
   $which = $_POST['which'];
-  list($wid,$id) = split(":",$which);
+  list($wid,$id) = explode(":",$which);
   $target_dir = "../uploads/pics/";
   $imageFileType = pathinfo($_FILES['fileToUpload']['name'],PATHINFO_EXTENSION);
   $target_file = "$target_dir/$wid.$imageFileType";
@@ -172,7 +172,7 @@ function tag_record_task($result) {
 function tag_make_task($db_row) {
   $tag = $GLOBALS['TAG'];
   add_instructions($tag);
-  $regexp = "regexp '[[:<:]]" . $tag . "[[:>:]]'";
+  $regexp = "regexp '\\\\b" . $tag . "\\\\b'";
   $q = "select a.pal,b.allwid,b.id,a.eng,a.pdef from all_words3 a,pictures b where a.pos not like 'var.' and (b.uploaded != 1 and b.uploaded != 2) and b.tag $regexp and a.id=b.allwid order by a.pal";
   #echo "$q";
   list($res,$num_rows) = check_table($q);
@@ -185,7 +185,7 @@ function tag_make_task($db_row) {
           <form method='post' enctype='multipart/form-data'>
           <select name='which'>
         ";
-  while($row = mysql_fetch_row($res)) {
+  while($row = mysqli_fetch_row($res)) {
     if (strlen($row[3]) > 0) {
       $eng = " [" . substr($row[3],0,50) . "]";  
     } else {
@@ -213,7 +213,7 @@ function simple_tag_page($tag) {
 function make_tag_page($options) {
   $tag = $options['tag'];
 
-  $regexp = "regexp '[[:<:]]" . $tag . "[[:>:]]'";
+  $regexp = "regexp '\\\\b" . $tag . "\\\\b'";
 
   # make sure that all the words are in the pictures table
   $q = "insert into pictures (allwid,tag,pal) (select id,tags,pal from all_words3 where pos not like 'var.' and tags $regexp and id not in (select allwid from pictures));";

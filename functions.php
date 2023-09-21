@@ -1701,8 +1701,10 @@ function belau_header($title) {
                 <li><a href='/dekaingeseu/d_trivia.php'>Trivia Q's</a>
                 <li><a href='/dekaingeseu/d_sentence.php'>Example Sentences</a>
                 <li><a href='/dekaingeseu/a_audio.php'>Record Audio</a>
+                <!--
                 <li><a href='/dekaingeseu/copy_keate.php'>Chisel a Yungs</a>
                 <li><a href='/dekaingeseu/rubak.php'>Rubak ma Daob</a>
+                -->
                 <li><a href='/dekaingeseu/pics_fish.php'>Fish Pics</a>
                 <li><a href='/dekaingeseu/pics_trees.php'>Tree Pics</a>
                 <li><a href='/dekaingeseu/pics_money.php'>Money Pics</a>

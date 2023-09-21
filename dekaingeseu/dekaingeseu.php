@@ -84,14 +84,14 @@ Class Dekaingeseu {
     #   timestamp submitted
     #   timestamp assigned
     function __construct($title,$config) {
-      print("Setting title to $title");
+      Debug("Setting title to $title");
       $this->title = $title;
       $this->intro = $config['intro'];
       $this->config = $config;
       $this->table = $config['table'];
       $this->url = curPageURL();
       $this->makePage();
-      print("Setting url to $this->url");
+      Debug("Setting url to $this->url");
     }
 
     function getCount($w=NULL) {
@@ -239,7 +239,7 @@ Class Dekaingeseu {
           print "No more work to be done.  Thanks for helping!<br>\n";
           return;
         }
-        $row = mysql_fetch_assoc($res);
+        $row = mysqli_fetch_assoc($res);
         $task = $this->config['make_task']($row,$this->config); # call our function pointer
       } else {
         $task = $this->config['make_task'](); # call our function pointer

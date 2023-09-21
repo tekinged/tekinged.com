@@ -75,7 +75,7 @@ function show_toc() {
   $coltwo = "";
   for($i=0; $i<(int)sizeof($links)/2; $i++) {
     $colone .= $links[$i] . "<br>\n";
-    $coltwooffset = (int)sizeof($links)/2+$i+1;
+    $coltwooffset = (int)((int)sizeof($links)/2+$i+1);
     if (isset($links[$coltwooffset])) {
       $coltwo .= $links[$coltwooffset] . "<br>\n";
     } else {
@@ -141,7 +141,7 @@ function show_toc() {
         show_toc();
         echo "</div> <!--content-->\n";
       }
-      belau_footer('josephs.php', ": $page $query"); 
+      belau_footer('josephs.php', ": $pageno $query"); 
     ?>
     </div>
     </div>
