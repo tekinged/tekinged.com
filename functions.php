@@ -1144,6 +1144,43 @@ function subentry_sort($a,$b) {
   $a_pos = $a->getPos();
   $b_pos = $b->getPos();
   Debug("Sorting $a_pal [$a_pos] with $b_pal [$b_pos]");
+
+  if (empty($a_pos) || empty($b_pos)) {
+      return strcmp($a_pal, $b_pal);  // Or any default sort behavior you'd like
+  }
+
+  if (strpos($a_pos,'v.pf.') !== False and strpos($b_pos,'v.pf.') !== False) {
+    return pos_compare($a_pos,$b_pos,5);
+  } else if (strpos($a_pos,'n.poss.') !== False and strpos($b_pos,'n.poss.') !== False) {
+    return pos_compare($a_pos,$b_pos,7);
+  } else if (strpos($a_pos,'v.pf') !== False) {
+    return -1;  # put all the v.pf's first
+  } else if (strpos($b_pos,'v.pf') !== False) {
+    return 1;
+  } else if (strpos($a_pos,'n.poss') !== False) {
+    return -1;  # put all the n.poss first
+  } else if (strpos($b_pos,'n.poss') !== False) {
+    return 1;
+  } else if (strpos($a_pos,'expr') !== False and strpos($b_pos,'expr') !== False) {
+    return strcmp($a_pal,$b_pal);
+  } else if (strpos($a_pos,'expr') !== False) {
+    return 1;  # put all the expressions last 
+  } else if (strpos($b_pos,'expr') !== False) {
+    return -1;
+  } else {
+    return strcmp($a_pal,$b_pal);
+  }
+}
+
+
+# this function produced warnings about strpos not accepting nul values so I pasted it to ChatGPT4 and asked it to fix it.
+# I then pasted its fix above. I haven't tested it, nor really read it, so leaving the old function here in case the ChatGPT's fix is no good.
+function subentry_sort_old($a,$b) {
+  $a_pal = $a->getWord();
+  $b_pal = $b->getWord();
+  $a_pos = $a->getPos();
+  $b_pos = $b->getPos();
+  Debug("Sorting $a_pal [$a_pos] with $b_pal [$b_pos]");
   if (strpos($a_pos,'v.pf.') !== False and strpos($b_pos,'v.pf.') !== False) {
     return pos_compare($a_pos,$b_pos,5);
   } else if (strpos($a_pos,'n.poss.') !== False and strpos($b_pos,'n.poss.') !== False) {
