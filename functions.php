@@ -282,6 +282,10 @@ function Debug($msg,$force=false) {
     #      $msg
     #      </script>\n";
   }
+
+  # before passing to console, make sure to escape any single quotes
+  $msg = str_replace("'", "\'", $msg);
+  echo "<script>console.log('$msg');</script>";
 }
 
 function info($msg) {
