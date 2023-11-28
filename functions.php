@@ -173,9 +173,9 @@ function table_to_string($query, $show_header=True,$show_titles=True,$add_count=
               Debug("Using extra_fp on $row[$i] in field $fields[$i]");
               $cell = $extra_fp($row); 
             } else {
-              Debug("Not using extra_fp in field $fields[$i]");
+              Debug("Not using extra_fp "); # in field $fields[$i]");
             }
-            if (in_array($fields[$i], $pal_text)) {
+            if (isset($fields[$i]) && in_array($fields[$i], $pal_text)) {
               Debug("Need to convert $cell to tooltips");
               $cell = pwords_to_plinks($cell);
             }
@@ -184,7 +184,8 @@ function table_to_string($query, $show_header=True,$show_titles=True,$add_count=
               $fl = count($fields);
               Debug("fields is type $ft, len $fl"); 
               $field_string = $fields[$i] ?? '';
-              $title = strlen($cell) ? "title='$cell: $field_string of $row[0]'" : ""; 
+              #$title = strlen($cell) ? "title='$cell: $field_string of $row[0]'" : ""; 
+              $title = ($cell !== null && strlen($cell)) ? "title='$cell: $field_string of $row[0]'" : "";
             } else {
               $title = '';
             }
@@ -285,7 +286,7 @@ function Debug($msg,$force=false) {
 
   # before passing to console, make sure to escape any single quotes
   $msg = str_replace("'", "\'", $msg);
-  echo "<script>console.log('$msg');</script>";
+  echo "<script>console.log(" . json_encode($msg) . ");</script>";
 }
 
 function info($msg) {
@@ -1548,35 +1549,39 @@ function get_words($query,$group=True,$tag=NULL,$specific_target=Null) {
   return $entries;
 }
 
+# keep them alphabetical by the Label column
 $GLOBALS['interesting'] = array(
-  'animal'  => array("a.tags regexp 'bird|cheled|charm|malk'",                  "Animals",'table'),
+  # KEY              WHERE_CLAUSE                                               LABEL                 # METHOD
+  'animal'  => array("a.tags regexp 'bird|cheled|charm|malk'",                  "Animals",            'table'),
   'daob'    => array("a.tags rlike 'daob'",                                     "Areas of the Ocean", 'table'),
-  'affix'   => array("pos regexp 'prefix|suffix'",                              "Affixes",'words'),
-  'baby'    => array("a.pos regexp 'baby'",                                     "Baby Words",'table'),
-  'birds'   => array("a.tags rlike 'bird'",                                     "Birds",'table'),
-  'body'    => array("a.tags rlike 'body'",                                     "Body Parts",'table'),
-  'english' => array("a.origin not rlike 'native' and a.origin rlike 'E'",      "Borrowed English",'table'),
-  'german'  => array("a.origin rlike 'G'",                                      "Borrowed German",'table'),
-  'japan'   => array("a.origin rlike 'J'",                                      "Borrowed Japanese ",'table'),
-  'malay'   => array("a.origin rlike 'M'",                                      "Borrowed Malay ",'table'),
-  'spanish' => array("a.origin rlike 'S'",                                      "Borrowed Spanish",'table'),
-  'tagalog' => array("a.origin not rlike 'native' and a.origin rlike 'T'",      "Borrowed Tagalog ",'table'),
-  'buil'    => array("a.tags rlike 'buil'",                                     "Buil (moon words)",'table'),
-  'cerem'   => array("a.tags rlike 'ceremony'",                                 "Ceremonies",'table'),
-  'cheled'  => array("a.tags rlike 'cheled'",                                   "Cheled (sea food)",'table'),
-  'malk'    => array("a.tags rlike 'malk'",                                     "Chickens",'table'),
-  'color'   => array("a.tags rlike 'color'",                                    "Colors",'table'),
+  'affix'   => array("pos regexp 'prefix|suffix'",                              "Affixes",            'words'),
+  'baby'    => array("a.pos regexp 'baby'",                                     "Baby Words",         'table'),
+  'bananas' => array("tags regexp 'banana'",                                    "Bananas",            'words'),
+  'birds'   => array("a.tags rlike 'bird'",                                     "Birds",              'table'),
+  'body'    => array("a.tags rlike 'body'",                                     "Body Parts",         'table'),
+  'english' => array("a.origin not rlike 'native' and a.origin rlike 'E'",      "Borrowed English",   'table'),
+  'german'  => array("a.origin rlike 'G'",                                      "Borrowed German",    'table'),
+  'japan'   => array("a.origin rlike 'J'",                                      "Borrowed Japanese ", 'table'),
+  'malay'   => array("a.origin rlike 'M'",                                      "Borrowed Malay ",    'table'),
+  'spanish' => array("a.origin rlike 'S'",                                      "Borrowed Spanish",   'table'),
+  'tagalog' => array("a.origin not rlike 'native' and a.origin rlike 'T'",      "Borrowed Tagalog ",  'table'),
+  'buil'    => array("a.tags rlike 'buil'",                                     "Buil (moon words)",  'table'),
+  'cerem'   => array("a.tags rlike 'ceremony'",                                 "Ceremonies",         'table'),
+  'cheled'  => array("a.tags rlike 'cheled'",                                   "Cheled (sea food)",  'table'),
+  'malk'    => array("a.tags rlike 'malk'",                                     "Chickens",           'table'),
+  'color'   => array("a.tags rlike 'color'",                                    "Colors",             'table'),
   'quiz'    => array("pal in (select Palauan from quiz_hard) limit 999",        "Difficult Quiz Words",'words'),
-  'chief'   => array("a.tags rlike 'chief'",                                    "Dui (titles)",'table'),
-  'fish'    => array("a.tags rlike 'fish' and a.tags not rlike 'fishing'",      "Fish",'table'),
-  'fishing' => array("a.tags rlike 'fishing'",                                  "Fishing Terms",'table'),
-  'flowers' => array("a.tags rlike 'bung'",                                     "Flowers",'table'),
-  'game'    => array("a.tags rlike 'game'",                                     "Games",'table'),
-  'greet'   => array("a.tags rlike 'greet'",                                    "Greetings",'table'),
-  'kinship' => array("a.tags rlike 'kin'",                                      "Kinship",'table'),
-  'legends' => array("a.tags rlike 'legend'",                                   "Legends",'table'),
+  'chief'   => array("a.tags rlike 'chief'",                                    "Dui (titles)",       'table'),
+  'fish'    => array("a.tags rlike 'fish' and a.tags not rlike 'fishing'",      "Fish",               'table'),
+  'fishing' => array("a.tags rlike 'fishing'",                                  "Fishing Terms",      'table'),
+  'flowers' => array("a.tags rlike 'bung'",                                     "Flowers",            'table'),
+  'game'    => array("a.tags rlike 'game'",                                     "Games",              'table'),
+  'greet'   => array("a.tags rlike 'greet'",                                    "Greetings",          'table'),
+  'kinship' => array("a.tags rlike 'kin'",                                      "Kinship",            'table'),
+  'legends' => array("a.tags rlike 'legend'",                                   "Legends",            'table'),
   'joseph'  => array("not isnull(a.josephs) and a.josephs!=1",                  "New Words Since Josephs",'table'),
-  'odor'    => array("a.tags rlike 'odor'",                                     "Odors",'table'),
+  'numbers' => array("/grammar/numbers.php",                                    "Numbers",            'page'),
+  'odor'    => array("a.tags rlike 'odor'",                                     "Odors",              'table'),
   'mlai'    => array("a.tags rlike 'mlai'",                                     "Parts of Boats",'table'), 
   'blai'    => array("a.tags rlike 'blai'",                                     "Parts of Houses",'table'), 
   'place'   => array("a.tags rlike 'place'",                                    "Places",'table'),
@@ -1901,7 +1906,27 @@ function strip_punctuation($string) {
 
 // user might want a table without the header row
 // pass false to show_header to turn it off
-function generate_table_header($result,$show_header=True,$add_count=False) {
+function generate_table_header($result, $show_header=True, $add_count=False) {
+    $table_header = "<table border='1' class='sortable'>";
+    $fields_num = $result->field_count;
+    $background = "bgcolor='#CC6600'";
+    $fields = array();
+    if ($show_header) {
+        $table_header .= "<thead><tr>\n";
+        if ($add_count) { $table_header .= "<th $background</th>"; }
+        $field_info = $result->fetch_fields();
+        foreach ($field_info as $field) {
+            $table_header .= "<th $background>{$field->name}</th>";
+            $fields[] = $field->name;
+        }
+        $table_header .= "</tr></thead><tbody>\n";
+    }
+    return array($table_header, $fields);
+}
+
+
+// there was a problem with this function so I asked chatgpt and she gave me a new version of it
+function generate_table_header_old($result,$show_header=True,$add_count=False) {
     $table_header = "<table border='1' class='sortable'>";
     $fields_num = $result->field_count; 
 
