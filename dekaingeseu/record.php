@@ -1,9 +1,6 @@
 <?php
-session_start();
-include('../functions.php');
-db_connect();
 
-$GLOBALS['DEBUG'] = false;
+$GLOBALS['DEBUG'] = True;
 
 $GLOBALS['audio_debug'] = "DEBUG: ";
 
@@ -19,6 +16,8 @@ function query_for_sentence($config) {
   $p = $config['palcolumn'];
   $e = $config['engcolumn'];
 
+  Debug('Entering query for sentence');
+
   #return return_debug();
   $skips = $_POST['next'];  # sends an array of ids to skip
   $filter = "(";
@@ -33,9 +32,12 @@ function query_for_sentence($config) {
   $f = "(select externalid from upload_audio where uploaded=1 and externaltable like '" . $t . "' and externalcolumn like '" . $c . "')";
   $q = "select id,$p as pal,$e as eng from $t where length($p) > 0 and $filter and id not in $f $orderby;";
   #file_put_contents('/tmp/jb.log',$q,FILE_APPEND);
+  
+  echo("query is $q");
+  Debug("query is $q");
   $r = query_or_die($q);
-  $nr = mysql_num_rows($r); # get all of them in order to count them
-  $row = mysql_fetch_assoc($r); # but only read the first one
+  $nr = mysqli_num_rows($r); # get all of them in order to count them
+  $row = mysqli_fetch_assoc($r); # but only read the first one
   return array($row,$nr,$q);
 }
 
