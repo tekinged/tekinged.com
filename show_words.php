@@ -42,6 +42,11 @@ function post_results($target) {
       $elapsed = microtime(true) - $begin;
       Debug("Took $elapsed");
       print_words($entries);
+    } else if ($method=='page') {
+      print("Need to implement page method here to redirect to $lookup");
+      echo '<script type="text/javascript">';
+      echo "window.location.href='$lookup';";
+      echo '</script>';
     } else {
       $custom = $GLOBALS['interesting'][$target][3] ?? '';
       if ($custom) {
