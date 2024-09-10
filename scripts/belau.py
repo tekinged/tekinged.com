@@ -6,6 +6,9 @@ import sys
 import MySQLdb
 import MySQLdb.cursors
 
+import mysql.connector
+
+
 def pal2id(c,pal,verbose=False):
   def show_word(idx,row):
     print ("\t%d: %s %s [%s] [id %d, root %d]" % (idx,row['pos'],row['eng'],row['pdef'],row['id'],row['stem']))
@@ -43,9 +46,18 @@ def connect():
   #print "Connecting via tunnel"
   pword=os.getenv('TEK_PWD')
   puser=os.getenv('TEK_USR')
+
   try:
-    db=MySQLdb.connect(user=puser,passwd=pword,db="belau",host="127.0.0.1",port=3307,cursorclass=MySQLdb.cursors.DictCursor)
-    c=db.cursor()
+    db = mysql.connector.connect(
+        host="localhost",
+        user=puser,
+        password=pword,
+        database="belau",
+        port=3307
+    )
+    c = db.cursor(dictionary=True)
+    #db=MySQLdb.connect(user=puser,passwd=pword,db="belau",host="127.0.0.1",port=3307,cursorclass=MySQLdb.cursors.DictCursor,auth_plugin='caching_sha2_password')
+    #c=db.cursor()
     return (db,c)
   except Exception as e:
     print("Couldn't connect. Is tunnel set up?")
