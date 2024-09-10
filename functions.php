@@ -1839,11 +1839,24 @@ function belau_footer($comments_id=NULL,$extra_visitlog=NULL) {
 }
 
 function db_connect() {
-    $db_host = 'mysql.tekinged.com';
-    $db_user = 'johnbent';
-    $db_pwd = 'chemelekelbuuch';
-
-    $database = 'belau';
+    // Get the absolute path to the credentials file in the root directory
+    $credentials_file = $_SERVER['DOCUMENT_ROOT'] . '/db_credentials.php';
+    
+    // Include credentials
+    if (file_exists($credentials_file)) {
+        require_once($credentials_file);
+    } else {
+        die('Error: Database credentials file not found!');
+        /* 
+          Please create a file called db_credentials.php and populate it with the following:
+          <?php
+              $db_host = 'DB_HOST';
+              $db_user = 'UNAME';
+              $db_pwd = 'PWORD';
+              $database = 'DB_NAME';
+          ?>
+        */
+    }
 
     # try to set a timeout . . . 
     Debug("Trying to get connection");
