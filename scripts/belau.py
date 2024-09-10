@@ -5,7 +5,6 @@ import sys
 #from sshtunnel import SSHTunnelForwarder
 import MySQLdb
 import MySQLdb.cursors
-import pymysql
 
 def pal2id(c,pal,verbose=False):
   def show_word(idx,row):
