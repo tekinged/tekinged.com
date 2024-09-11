@@ -55,7 +55,7 @@ Class PQuestion {
   function explanation() {
     $wid = $this->wid;
     $aid = $this->aid;
-    $q = "select id,stem from all_words3 where id=$aid or id=$wid";
+    $q = "select id,stem,pos,pal from all_words3 where id=$aid or id=$wid";
     $entries = get_words($q,False);
     $use_tooltip = False;
     if ($use_tooltip) {
