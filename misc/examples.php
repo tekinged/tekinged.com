@@ -12,7 +12,7 @@ $GLOBALS['DEBUG'] = false;
     <div class='bothtab'>
 
         <?php
-            $filter = $_POST['filter'];
+            $filter = $_POST['filter'] ?? '';
             echo "<div>&nbsp;</div>\n";
             echo "<h2 class='inl'>$title</h2> 
                <form method='post' class='inl'><br>
@@ -20,7 +20,7 @@ $GLOBALS['DEBUG'] = false;
               </form>
             ";
             $query = "select id as 'Audio&nbsp\;&nbsp\;&nbsp\;&nbsp\;',Palauan ,English ,Source from sentences";
-            if (strlen($filter)>0) {
+            if (strlen($filter ?? '') > 0) {
               $query .= ' where Palauan regexp "\\\\b'.$filter.'\\\\b" or English regexp "\\\\b'.$filter.'\\\\b" order by Palauan';
             }
             Debug($query);

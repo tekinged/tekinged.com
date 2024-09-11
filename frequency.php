@@ -90,7 +90,7 @@ function get_frequencies() {
     return array($words,$tr,$wc,$distinct_words);
 }
 
-function intro() {
+function intro($title) {
     echo "<div id='content-container'>\n";
     echo "<h2>$title</h2>\n";
     echo "<p class='tab'>This page does a word count across Palauan language text snippets that have been collected online.  ";
@@ -105,7 +105,7 @@ function intro() {
       "SELECT source,SUM(LENGTH(palauan) - LENGTH(REPLACE(palauan, ' ', ''))+1) AS words FROM all_paltext GROUP BY source ORDER BY words DESC;",
       false, false,false);
     echo "<p class='tab'>Here are the sources for this analysis as well as the words from each: $sources"; 
-    echo "<p class='tab'>And here is the list of words:";
+    echo "<p class='tab'>And here is the list of the top 4000 most frequently used Palauan words:";
     flush();
 }
 
@@ -153,7 +153,7 @@ function get_plinks($Pagination,$page,$limit,$tr,$table,$orderby) {
     return array($startrow,$pagination_links,$prev_link,$next_link);
 }
 
-intro();
+intro($title);
 
 /* set up some pagination, get words first since we need tr */
 /*$begin = time();
@@ -212,6 +212,7 @@ echo "</p>\n";
 
 echo "<p>Does Palauan word frequency follow a <a href='http://bit.ly/YobBwa'>zipf distribution</a> as do <a href=https://colala.bcs.rochester.edu/papers/piantadosi2014zipfs.pdf>most languages</a>?</p>\n";
 
+# use 'crontab -l' to figure out where this file comes from
 include("tmp/freq_table.html");
 
 

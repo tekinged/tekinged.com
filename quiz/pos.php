@@ -79,11 +79,15 @@ Class PQuestion {
     $pos = $this->pos;
     $apos = $this->apos;
     $q = "select a.pal as one, b.pal as two from all_words3 a,all_words3 b "
-       . " where a.pos like '$pos' and a.id=b.stem and b.pos like '$apos' and a.vulgar=0 and b.vulgar=0 order by rand() limit 1";
+       . " where a.pos like '$pos' and a.id=b.stem and b.pos like '$apos' and a.vulgar=0 and b.vulgar=0 order by rand() limit 5";
+    $example = "<div class='tab'>For example, <ul>\n";
+    #<i>$two</i> is the $apos form of the $pos word <i>$one</i>.</ul></div>\n";
     $r = query_or_die($q);
-    $row = $r->fetch_assoc(); 
-    extract($row);
-    $example = "<div class='tab'><ul><li>For example, <i>$two</i> is the $apos form of the $pos word <i>$one</i>.</ul></div>\n";
+    while( $row = $r->fetch_assoc() ) {
+      extract($row);
+      $example .= "<li><i>$two</i> is the $apos form of <i>$one</i>";
+    }
+    $example .= "</ul></div>\n";
     return $example;
   }
 
@@ -93,7 +97,7 @@ Class PQuestion {
     $eng = $this->eng;
     $apos = $this->apos;
     $html = "The Palauan word <b>$pal</b> is a <i>$pos</i> meaning <b>$eng</b>.<br>";
-    $html .= "Please type the <i>$apos</i> form of this word";
+    $html .= "<br>Please type the <i>$apos</i> form of $pal.";
     $example = $this->get_example();
     inputq($this->myid,$html,$example);
   }

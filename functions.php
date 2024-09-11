@@ -1006,6 +1006,7 @@ Class Entry {
         $q .= "stem = $id"; 
         $q .= " order by rand() limit 5";
         $r = query_or_die($q);
+        Debug($q);
         return $r;
     }
 
@@ -1570,6 +1571,7 @@ $GLOBALS['interesting'] = array(
   'cheled'  => array("a.tags rlike 'cheled'",                                   "Cheled (sea food)",  'table'),
   'malk'    => array("a.tags rlike 'malk'",                                     "Chickens",           'table'),
   'color'   => array("a.tags rlike 'color'",                                    "Colors",             'table'),
+  'contr'   => array("a.pos like 'cont.'",                                      "Contractions",       'table'),
   'quiz'    => array("pal in (select Palauan from quiz_hard) limit 999",        "Difficult Quiz Words",'words'),
   'chief'   => array("a.tags rlike 'chief'",                                    "Dui (titles)",       'table'),
   'fish'    => array("a.tags rlike 'fish' and a.tags not rlike 'fishing'",      "Fish",               'table'),
@@ -1828,8 +1830,8 @@ function belau_footer($comments_id=NULL,$extra_visitlog=NULL) {
     } else {
         echo "
           <div id='footer'>
-            <b>tekinged.com</b> : Our online Palauan language portal.<br>
-            <!-- As of July 14, 2015, sponsored by and approved by the <a href=https://palaulanguagecommission.blogspot.com>Palau Language Commission</a>.  <br> -->
+            <b>tekinged.com</b> : <i>Our</i> online Palauan language portal.<br>
+            Operated under partnership with the <a href=https://palaulanguagecommission.blogspot.com>Palau Language Commission</a>.  <br> 
             <i>Now, and forever, free to use and free of ads.</i><br>
           </div><!-- footer -->
             ";
@@ -1839,11 +1841,24 @@ function belau_footer($comments_id=NULL,$extra_visitlog=NULL) {
 }
 
 function db_connect() {
-    $db_host = 'mysql.tekinged.com';
-    $db_user = 'johnbent';
-    $db_pwd = 'chemelekelbuuch';
+    // Get the absolute path to the credentials file in the root directory
+    $credentials_file = $_SERVER['DOCUMENT_ROOT'] . '/db_credentials.php';
 
-    $database = 'belau';
+    // Include credentials
+    if (file_exists($credentials_file)) {
+        require_once($credentials_file);
+    } else {
+        die('Error: Database credentials file not found!');
+        /* 
+          Please create a file called db_credentials.php and populate it with the following:
+          <?php
+              $db_host = 'DB_HOST';
+              $db_user = 'UNAME';
+              $db_pwd = 'PWORD';
+              $database = 'DB_NAME';
+          ?>
+        */ 
+    }
 
     # try to set a timeout . . . 
     Debug("Trying to get connection");
