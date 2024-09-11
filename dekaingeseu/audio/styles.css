@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+}
+
+#recordingArea {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.icon {
+    margin: 10px;
+    cursor: pointer;
+}
+
+.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+#progressBar {
+    width: 100%;
+    background-color: #f3f3f3;
+    position: relative;
+    height: 20px;
+}
+
+#progress {
+    background-color: #4caf50;
+    width: 0;
+    height: 100%;
+}
+
+#timer {
+    margin-top: 10px;
+}
+
