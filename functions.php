@@ -1781,6 +1781,7 @@ function belau_header($title) {
                 <li><a href='/books/books.php'>Books</a> </li>
                 <li><a href='/aw/list.php'>Browse</a></li>
                 <li><a href='/misc/recent.php'>Newest Words</a></li>
+                <li><a href='https://www.wordle.global/pau'>Palauan Wordle</a></li>
                 <li><a href='/dosuub/app.php'>Phone/Tablet Apps</a></li>
                 <li><a href='/books/kindle.php'>Kindle Dictionary</a></li>
                 <li><a href='/dosuub/apple_dict.php'>Apple Dictionary</a></li>

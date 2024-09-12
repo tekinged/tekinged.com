@@ -234,16 +234,17 @@ function add_aside($empty=False) {
           <li>$total Palauan words in $groups groups
           <li>$ptotal proverbs, $etotal example sentences.
           </ul>
-          Compiled from <a href=/misc/dictpage.php>Josephs</a>, <a href=/books/kerresel.php>Ramarui</a>, and <a href=/about.php>volunteers</a>.
-          <br>
-          <br>
           Latest additions: <br>
 <ul>
+<li> <a href=https://www.wordle.global/pau><b>Palauan Wordle</b></a>
 <li> <a href=http://tekinged.com/quiz/q_etymology.php>Etymology Quiz</a>
 <li> <a href=https://github.com/tekinged/missing/issues>Missing Words Committee</a>
 <li> <a href=http://tekinged.com/books/kindle.php>Kindle Dictionary</a>
 <li> <a href=http://tekinged.com/misc/pdf.php?file=sim_coordinated-investigation-of-micronesian-anthropology_1951-1953_21>1949 Anthropology Report on Palau</a>
 </ul>
+
+          Compiled from <a href=/misc/dictpage.php>Josephs</a>, <a href=/books/kerresel.php>Ramarui</a>, and <a href=/about.php>volunteers</a>.
+          <br>
           </div><!-- tab -->
       ";
 
