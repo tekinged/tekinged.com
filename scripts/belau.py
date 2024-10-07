@@ -19,7 +19,7 @@ def pal2id(c,pal,verbose=False):
   if (len(rows)>1):
     for idx, row in enumerate(rows):
       show_word(idx,row)
-    answer = raw_input("\tWhich word to link?")
+    answer = input("\tWhich word to link?")
     row = rows[int(answer)]
     print ("Using %s" % row['eng'])
     return row['id']
@@ -71,7 +71,7 @@ def insert(c,db,pal,pdef=None,edef=None,prompt=True,tag=None,pos=None):
   try:
     print ("Execute %s %s?" % (query, values))
     if (prompt):
-      var = raw_input("y|n? ")
+      var = input("y|n? ")
     else:
       var = 'y'
     if (var != 'n'):

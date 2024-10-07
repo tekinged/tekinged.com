@@ -1,7 +1,6 @@
 #! /usr/bin/env python3
 
 import sys
-import pymysql
 import itertools
 import argparse
 
@@ -48,7 +47,7 @@ def add_syns(c,syns,args):
     print("Using existing group %d" % group)
 
   if args.p:
-    ans = raw_input("Proceed to enter this group into %s? " % table) 
+    ans = input("Proceed to enter this group into %s? " % table) 
     if ans == 'n':
       print("Will not enter.")
       return
